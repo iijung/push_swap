@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2022/09/14 08:42:13 by minjungk         ###   ########.fr        #
+#    Updated: 2022/09/14 11:17:14 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,14 +56,14 @@ all bonus:
 $(NAME): $(LIBS) $(OBJS)
 
 clean:
-	$(Q)$(MAKE) -C $(dir $(LIBS)) $(notdir $(LIBS)) clean
+	$(Q)$(MAKE) -C $(dir $(LIBS)) clean
 	$(Q)$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
 	$(Q)$(RM) $(LIBS) $(NAME)
 
 re: fclean
-	$(Q)$(MAKE) $(if $(filter bonus, $(MAKCMDGOALS)), bonus, all)
+	$(Q)$(MAKE)
 
 .PHONY: all clean fclean re bonus $(LIBS)
 
