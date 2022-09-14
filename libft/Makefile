@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 20:07:19 by minjungk          #+#    #+#              #
-#    Updated: 2022/09/14 08:20:29 by minjungk         ###   ########.fr        #
+#    Updated: 2022/09/14 12:01:51 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,6 @@ endif
 # **************************************************************************** #
 
 NAME = libft.a
-
-HEAD = \
-	libft.h \
 
 SRCS = \
 	ft_isalpha.c \
@@ -107,7 +104,7 @@ fclean: clean
 	$(Q)$(RM) $(NAME)
 
 re: fclean
-	$(Q)$(MAKE) all
+	$(Q)$(MAKE)
 
 .PHONY: all clean fclean re bonus
 

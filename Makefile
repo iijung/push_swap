@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2022/09/14 11:17:14 by minjungk         ###   ########.fr        #
+#    Updated: 2022/09/14 12:01:14 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,12 +48,16 @@ SRCS = $(if $(filter bonus, $(MAKECMDGOALS)), $(src_b), $(src_m))
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
 LIBS = libft/libft.a
+DIRS = libft 
 
 all bonus:
-	$(Q)$(MAKE) -C $(dir $(LIBS)) $(notdir $(LIBS))
+	$(Q)$(MAKE) -C $(DIRS)
 	$(Q)$(MAKE) $(NAME)
 
 $(NAME): $(LIBS) $(OBJS)
+$(OBJS): $(LIBS)
+$(LIBS):
+	$(Q)$(MAKE) -C $(@D) $(@F)
 
 clean:
 	$(Q)$(MAKE) -C $(dir $(LIBS)) clean
@@ -65,6 +69,6 @@ fclean: clean
 re: fclean
 	$(Q)$(MAKE)
 
-.PHONY: all clean fclean re bonus $(LIBS)
+.PHONY: all clean fclean re bonus $(DIRS)
 
 -include $(DEPS)
