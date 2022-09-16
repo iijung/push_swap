@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2022/09/14 12:01:14 by minjungk         ###   ########.fr        #
+#    Updated: 2022/09/16 09:58:07 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,10 @@ endif
 NAME = push_swap
 
 src_m = \
-		push_swap.c
+		push_swap.c \
+		deque_check.c \
+		deque_common.c \
+		deque_control.c \
 
 src_b = \
 		push_swap.c

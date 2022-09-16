@@ -6,13 +6,16 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:48:43 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/14 08:48:50 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/16 10:02:30 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 int	main(void)
 {
+	t_deque	a;
+	t_deque	b;
+
 	return (0);
 }
