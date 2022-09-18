@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2022/09/16 09:58:07 by minjungk         ###   ########.fr        #
+#    Updated: 2022/09/18 22:53:59 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ RM = rm -f
 
 CFLAGS = -Wall -Wextra -Werror -MMD -MP
 CPPFLAGS = -I./libft
-LDFLAGS = -L./libft -lft
+LDFLAGS = -L./libft
+LDLIBS = -lft
 
 ifdef DEBUG
 	CFLAGS += -O0 -g -fsanitize=address,undefined
@@ -31,11 +32,15 @@ ifdef VERBOSE
 endif
 
 %.o : %.c
-	$(Q)$(COMPILE.c) $(OUTPUT_OPTION) $<
+	$Q$(COMPILE.c) $(OUTPUT_OPTION) $<
+
+% : %.o
+	$Q$(LINK.o) $^ $(LDLIBS) $(OUTPUT_OPTION)
 
 # **************************************************************************** #
 # main
 # **************************************************************************** #
+
 NAME = push_swap
 
 src_m = \
@@ -50,28 +55,28 @@ src_b = \
 SRCS = $(if $(filter bonus, $(MAKECMDGOALS)), $(src_b), $(src_m))
 OBJS = $(SRCS:.c=.o)
 DEPS = $(SRCS:.c=.d)
+-include $(DEPS)
+
 LIBS = libft/libft.a
 DIRS = libft 
 
 all bonus:
-	$(Q)$(MAKE) -C $(DIRS)
-	$(Q)$(MAKE) $(NAME)
+	$Q$(MAKE) -C $(DIRS)
+	$Q$(MAKE) $(NAME)
 
-$(NAME): $(LIBS) $(OBJS)
+$(NAME): $(OBJS)
 $(OBJS): $(LIBS)
 $(LIBS):
-	$(Q)$(MAKE) -C $(@D) $(@F)
+	$Q$(MAKE) -C $(@D) $(@F)
 
 clean:
-	$(Q)$(MAKE) -C $(dir $(LIBS)) clean
-	$(Q)$(RM) $(OBJS) $(DEPS)
+	$Q$(MAKE) -C $(dir $(LIBS)) clean
+	$Q$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
-	$(Q)$(RM) $(LIBS) $(NAME)
+	$Q$(RM) $(LIBS) $(NAME)
 
 re: fclean
-	$(Q)$(MAKE)
+	$Q$(MAKE)
 
 .PHONY: all clean fclean re bonus $(DIRS)
-
--include $(DEPS)
