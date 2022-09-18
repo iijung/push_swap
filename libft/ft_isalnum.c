@@ -6,15 +6,17 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 20:35:02 by minjungk          #+#    #+#             */
-/*   Updated: 2022/07/06 18:06:44 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/16 12:38:10 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isalnum(int c)
 {
-	if (('0' <= c && c <= '9')
-		|| ('a' <= c && c <= 'z')
-		|| ('A' <= c && c <= 'Z'))
+	if ('0' <= c && c <= '9')
 		return (1);
+	if ('a' <= c && c <= 'z')
+		return (2);
+	if ('A' <= c && c <= 'Z')
+		return (3);
 	return (0);
 }

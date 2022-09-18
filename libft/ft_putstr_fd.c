@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/10 00:29:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/07/10 00:33:27 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/16 13:55:09 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	if (fd < 0)
-		return ;
 	while (s && *s)
 		write(fd, s++, 1);
 }

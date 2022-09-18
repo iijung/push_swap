@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 20:07:19 by minjungk          #+#    #+#              #
-#    Updated: 2022/09/14 12:01:51 by minjungk         ###   ########.fr        #
+#    Updated: 2022/09/18 21:08:34 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ endif
 
 NAME = libft.a
 
-SRCS = \
+SRCS := \
 	ft_isalpha.c \
 	ft_isdigit.c \
 	ft_isalnum.c \
@@ -83,29 +83,27 @@ SRCS = \
 	ft_lstclear.c \
 	ft_lstiter.c \
 	ft_lstmap.c \
-	ft_lstmap.c \
 	get_next_line.c \
 	ft_make_token.c \
 	ft_parse_token.c \
 	ft_printf.c \
 
-OBJS = $(SRCS:.c=.o)
-DEPS = $(SRCS:.c=.d)
+OBJS := $(SRCS:.c=.o)
+DEPS := $(SRCS:.c=.d)
+-include $(DEPS)
 
 all bonus: $(NAME)
 
 $(NAME): $(OBJS)
-	$(Q)$(AR) $(ARFLAGS) $@ $^
+	$Q$(AR) $(ARFLAGS) $@ $^
 
 clean:
-	$(Q)$(RM) $(OBJS) $(DEPS)
+	$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
-	$(Q)$(RM) $(NAME)
+	$Q$(RM) $(NAME)
 
 re: fclean
-	$(Q)$(MAKE)
+	$Q$(MAKE)
 
 .PHONY: all clean fclean re bonus
-
--include $(DEPS)
