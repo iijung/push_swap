@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:48:43 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/20 19:52:01 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/20 22:53:52 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,30 @@ static int	in(t_push_swap *ps, int size, char **arr)
 	return (0);
 }
 
-static int run(t_push_swap *ps)
+static int	run(t_push_swap *ps)
 {
 	if (ps == 0)
 		return (-1);
-
+	ft_printf("size: %d\n", deque_count(&ps->a));
 	deque_begin(&ps->a);
 	deque_begin(&ps->b);
-
+	ft_printf("\nchange\n");
+	ps_cmd("sa", ps);
+	deque_begin(&ps->a);
+	deque_begin(&ps->b);
+	ft_printf("\npa\n");
+	ps_cmd("pb", ps);
+	deque_begin(&ps->a);
+	deque_begin(&ps->b);
+	ft_printf("\nra\n");
+	ps_cmd("ra", ps);
+	ps_cmd("ra", ps);
+	ps_cmd("ra", ps);
+	deque_begin(&ps->a);
+	ft_printf("\nrra\n");
+	ps_cmd("rra", ps);
+	ps_cmd("rra", ps);
+	deque_begin(&ps->a);
 	return (0);
 }
 

@@ -6,13 +6,20 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 09:53:22 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/20 19:52:27 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/20 20:36:37 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		deque_init(t_deque *dq, int max)
+int	deque_count(t_deque *dq)
+{
+	if (dq == 0)
+		return (0);
+	return ((dq->rear - dq->front + dq->max) % dq->max);
+}
+
+int	deque_init(t_deque *dq, int max)
 {
 	if (dq == 0)
 		return (-1);
