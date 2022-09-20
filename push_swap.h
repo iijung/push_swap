@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 22:23:34 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/16 10:03:41 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:44:30 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,21 @@
 
 typedef struct s_deque
 {
-	unsigned int	front;
-	unsigned int	rear;
-	unsigned int	max;
-	int				*data;
+	int	front;
+	int	rear;
+	int	max;
+	int	*data;
 }				t_deque;
 
-t_deque	*deque_init(unsigned int max);
-void	deque_clear(t_deque *dq);
+typedef struct s_push_swap
+{
+	int			size;
+	int			*arr;
+	t_deque		a;
+	t_deque		b;
+}				t_push_swap;
+
+int		deque_init(t_deque *dq, int max);
 void	deque_begin(t_deque *dq);
 void	deque_end(t_deque *dq);
 

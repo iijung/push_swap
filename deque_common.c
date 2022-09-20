@@ -6,38 +6,26 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 09:53:22 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/16 10:03:25 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:52:27 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_deque	*deque_init(unsigned int max)
-{
-	t_deque	*tmp;
-
-	tmp = ft_calloc(1, sizeof(t_deque));
-	if (tmp == 0)
-		return (0);
-	tmp->max = max;
-	tmp->data = ft_calloc(max, sizeof(int));
-	if (tmp->data)
-		return (tmp);
-	free(tmp);
-	return (0);
-}
-
-void	deque_clear(t_deque *dq)
+int		deque_init(t_deque *dq, int max)
 {
 	if (dq == 0)
-		return ;
-	free(dq->data);
-	free(dq);
+		return (-1);
+	dq->max = max + 1;
+	dq->data = ft_calloc(max, sizeof(int));
+	if (dq->data == 0)
+		return (-1);
+	return (0);
 }
 
 void	deque_begin(t_deque *dq)
 {
-	unsigned int	idx;
+	int	idx;
 
 	if (deque_empty(dq) != 0)
 		return ;
@@ -52,7 +40,7 @@ void	deque_begin(t_deque *dq)
 
 void	deque_end(t_deque *dq)
 {
-	unsigned int	idx;
+	int	idx;
 
 	if (deque_empty(dq) != 0)
 		return ;
