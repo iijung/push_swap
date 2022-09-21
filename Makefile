@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2022/09/20 22:53:12 by minjungk         ###   ########.fr        #
+#    Updated: 2022/09/21 11:55:10 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,11 +45,7 @@ NAME = push_swap
 
 src_m = \
 		push_swap.c \
-		deque_check.c \
-		deque_common.c \
-		deque_command.c \
-		deque_control.c \
-		ps_command.c \
+		ps_stack.c \
 
 src_b = \
 		push_swap.c

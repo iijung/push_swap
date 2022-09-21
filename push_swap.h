@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 22:23:34 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/20 22:51:59 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/21 11:59:35 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,29 @@
 # define PUSH_SWAP_H
 # include "libft.h"
 
-typedef struct s_deque
+typedef struct s_stack 		t_stack;
+typedef struct s_data		t_data;
+
+struct s_stack
 {
-	int	front;
-	int	rear;
-	int	max;
-	int	*data;
-}				t_deque;
+	int		front;
+	int		rear;
+	int		cnt;
+	int		max;
+	int		*arr;
+	t_stack	*(*pop)(struct s_stack *, int *, int);
+	t_stack	*(*push)(struct s_stack *, int, int);
+	t_stack	*(*swap)(struct s_stack *);
+	t_stack	*(*rotate)(struct s_stack *, int);
+};
 
-typedef struct s_push_swap
+struct s_data
 {
-	int			size;
-	int			*arr;
-	t_deque		a;
-	t_deque		b;
-}				t_push_swap;
+	int		max;
+	int		*arr;
+	t_stack	a;
+	t_stack	b;
+};
 
-int		deque_count(t_deque *dq);
-int		deque_init(t_deque *dq, int max);
-void	deque_begin(t_deque *dq);
-void	deque_end(t_deque *dq);
-
-int		deque_full(t_deque *dq);
-int		deque_empty(t_deque *dq);
-int		deque_front(t_deque *dq);
-int		deque_rear(t_deque *dq);
-
-int		deque_push_rear(t_deque *dq, int n);
-int		deque_push_front(t_deque *dq, int n);
-int		deque_pop_rear(t_deque *dq);
-int		deque_pop_front(t_deque *dq);
-
-
-int	deque_swap(t_deque *dq);
-int	deque_push(t_deque *get, t_deque *put);
-int	deque_rotate(t_deque *dq);
-int	deque_rrotate(t_deque *dq);
-
-int	ps_cmd(const char *cmd, t_push_swap *ps);
+int	stack_init(t_stack *st, int max);
 #endif
