@@ -6,113 +6,67 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:48:43 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/21 12:27:53 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/21 22:04:08 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	stack_show(t_stack *st)
+void	aashow(void *num)
 {
-	int	idx;
+	int	*n;
 
-	if (st == 0)
-		return ;
-	if (st->front == st->rear)
-		return ;
-	idx = (st->front + 1) % st->max;
-	while (idx != st->rear)
-	{
-		ft_printf("%d ", st->arr[idx]);
-		idx = (idx + 1) % st->max;
-	}
-	ft_printf("%d", st->arr[idx]);
-}
-
-static int	data_atoi(const char *str, int *rtn)
-{
-	int				minus;
-
-	minus = 0;
-	if (*str == '+' || *str == '-')
-		minus = *str++ == '-';
-	if (!('0' <= *str && *str <= '9'))
-		return (-1);
-	*rtn = 0;
-	while ('0' <= *str && *str <= '9')
-	{
-		if (*rtn > 214748364 || (*rtn == 214748364 && (*str > '7' + minus)))
-			return (-1);
-		*rtn = *rtn * 10 + *str++ - '0';
-	}
-	if (minus)
-		*rtn *= -1;
-	return (0);
+	n = num;
+	if (*n)
+		ft_printf("%d ", *n);
 }
 
 static int	in(t_data *data, int size, char **strs)
 {
-	int	i;
-
 	if (data == 0 || size == 0 || strs == 0)
 		return (-1);
-	data->max = size;
-	data->arr = ft_calloc(size, sizeof(int));
-	if (data->arr == 0)
+	if (stack_init(&data->a) < 0 || stack_init(&data->b) < 0)
 		return (-1);
-	if (stack_init(&data->a, size) < 0 || stack_init(&data->b, size) < 0)
+	if (data_parse(data, size, strs) < 0)
 		return (-1);
-	i = -1;
-	while (++i < size)
-	{
-		if (data_atoi(strs[i], &data->arr[i]) < 0)
-			return (-1);
-		if (data->a.push(&data->a, data->arr[i], 0) < 0)
-			return (-1);
-	}
 	return (0);
 }
 
 static unsigned int	sort_count(t_stack *st, int asc)
 {
-	int	i;
-	int	cnt;
+	int		cnt;
+	t_list	*curr;
 
 	if (st == 0)
 		return (-1);
 	if (st->cnt < 2)
 		return (st->cnt);
 	cnt = 1;
-	i = (st->front + 1) % st->max;
-	while (i != st->rear)
+	curr = st->front;
+	while (curr && curr->next)
 	{
-		if (asc && st->arr[i] > st->arr[(i + 1) % st->max])
+		if (*(int *)(curr->content) == *(int *)(curr->next->content))
+			return (-1);
+		if (asc && *(int *)(curr->content) > *(int *)(curr->next->content))
 			break;
-		if (!asc && st->arr[i] < st->arr[(i + 1) % st->max])
+		if (!asc && *(int *)(curr->content) < *(int *)(curr->next->content))
 			break;
 		++cnt;
-		i = (i + 1) % st->max;
+		curr = curr->next;
 	}
 	return (cnt);
 }
 
 static int	run(t_data *data)
 {
-	int	cnt;
-	int	sorted;
-
-	if (data == 0)
-		return (-1);
-	stack_show(&data->a);
-	ft_printf("\n");
-	cnt = 0;
-	sorted = sort_count(&data->a, 1);
+	int	cnt = 0;
+	int	sorted = sort_count(&data->a, 1);
 	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
-	stack_show(&data->a);
+	ft_lstiter(data->a.front, aashow);
 	ft_printf(" / ");
-	stack_show(&data->b);
+	ft_lstiter(data->b.front, aashow);
 	ft_printf("\n");
-	while (sorted != data->max)
+	while (sorted != data->a.cnt)
 	{
 #if 0
 		data_cmd("sa", data);
@@ -124,15 +78,56 @@ static int	run(t_data *data)
 		data_cmd("pa", data);
 		data_cmd("pa", data);
 #else
-	data->a.rotate(&data->a, 0);
-
+	if (data_command(data, "sa") < 0) return (-1);
 	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
-	stack_show(&data->a);
+	ft_lstiter(data->a.front, aashow);
 	ft_printf(" / ");
-	stack_show(&data->b);
+	ft_lstiter(data->b.front, aashow);
+	ft_printf("\n");
+	if (data_command(data, "pb") < 0) return (-1);
+	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
+	ft_lstiter(data->a.front, aashow);
+	ft_printf(" / ");
+	ft_lstiter(data->b.front, aashow);
+	ft_printf("\n");
+	if (data_command(data, "pb") < 0) return (-1);
+	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
+	ft_lstiter(data->a.front, aashow);
+	ft_printf(" / ");
+	ft_lstiter(data->b.front, aashow);
+	ft_printf("\n");
+	if (data_command(data, "pb") < 0) return (-1);
+	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
+	ft_lstiter(data->a.front, aashow);
+	ft_printf(" / ");
+	ft_lstiter(data->b.front, aashow);
+	ft_printf("\n");
+	if (data_command(data, "sa") < 0) return (-1);
+	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
+	ft_lstiter(data->a.front, aashow);
+	ft_printf(" / ");
+	ft_lstiter(data->b.front, aashow);
+	ft_printf("\n");
+	if (data_command(data, "pa") < 0) return (-1);
+	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
+	ft_lstiter(data->a.front, aashow);
+	ft_printf(" / ");
+	ft_lstiter(data->b.front, aashow);
 	ft_printf("\n");
 
+	if (data_command(data, "pa") < 0) return (-1);
+	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
+	ft_lstiter(data->a.front, aashow);
+	ft_printf(" / ");
+	ft_lstiter(data->b.front, aashow);
+	ft_printf("\n");
 
+	if (data_command(data, "pa") < 0) return (-1);
+	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
+	ft_lstiter(data->a.front, aashow);
+	ft_printf(" / ");
+	ft_lstiter(data->b.front, aashow);
+	ft_printf("\n");
 
 		sleep(1);
 		++cnt;
@@ -143,10 +138,16 @@ static int	run(t_data *data)
 	return (0);
 }
 
+void	test_leak(void)
+{
+	system("leaks push_swap");
+}
+
 int	main(int argc, char **argv)
 {
 	t_data	data;
 
+//	atexit(test_leak);
 	if (argc < 2)
 		exit(-1);
 	while (1)
@@ -156,9 +157,6 @@ int	main(int argc, char **argv)
 			break ;
 		exit(0);
 	}
-	free(data.arr);
-	free(data.a.arr);
-	free(data.b.arr);
 	ft_putstr_fd("Error\n", 2);
 	exit(-1);
 }

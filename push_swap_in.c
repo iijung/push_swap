@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:41:25 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/21 20:06:03 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/21 21:17:34 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,10 @@ int	data_parse(t_data *data, int size, char **strs)
 		j = -1;
 		while (split[++j])
 		{
-			ft_printf("split : %s\n", split[j]);
 			if (data_atoi(split[j], &num) < 0)
-				return (-1);
-			ft_printf("atoi  : %d\n", num);
+				ft_error();
 			if (data->a.push(&data->a, num, 0) < 0)
-				return (-1);
-			ft_printf("push success\n");
+				ft_error();
 			free(split[j]);
 		}
 		free(split);

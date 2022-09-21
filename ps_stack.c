@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 11:16:54 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/21 19:16:13 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/21 21:15:14 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	pop(t_stack *st, int *rtn, int is_front)
 	t_list	*curr;
 
 	if (st == 0 || rtn == 0 || st->front == 0)
-		return (0);
+		return (-1);
 	prev = 0;
 	curr = st->front;
 	if (is_front)
@@ -87,12 +87,12 @@ static int	rotate(struct s_stack *st, int to_left)
 		return (-1);
 	if (to_left)
 	{
-		if (st->pop(st, &tmp, 1) == 0 || st->push(st, tmp, 0) == 0)
+		if (st->pop(st, &tmp, 1) < 0 || st->push(st, tmp, 0) < 0)
 			return (-1);
 	}
 	else
 	{
-		if (st->pop(st, &tmp, 0) == 0 || st->push(st, tmp, 1) == 0)
+		if (st->pop(st, &tmp, 0) < 0 || st->push(st, tmp, 1) < 0)
 			return (-1);
 	}
 	return (0);

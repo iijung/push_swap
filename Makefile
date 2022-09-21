@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2022/09/21 16:40:43 by minjungk         ###   ########.fr        #
+#    Updated: 2022/09/21 22:01:51 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ src_m = \
 		push_swap.c \
 		push_swap_in.c \
 		ps_stack.c \
+		ps_data.c \
 
 src_b = \
 		push_swap.c
