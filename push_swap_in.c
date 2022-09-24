@@ -6,13 +6,13 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:41:25 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/21 21:17:34 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/24 21:10:56 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	ft_error()
+static void	ft_error(void)
 {
 	ft_putstr_fd("Error\n", 2);
 	exit(-1);

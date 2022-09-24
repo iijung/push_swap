@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 22:23:34 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/21 22:01:18 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/25 00:04:48 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define PUSH_SWAP_H
 # include "libft.h"
 
-typedef struct s_stack 		t_stack;
+typedef struct s_stack		t_stack;
 typedef struct s_data		t_data;
 
 struct s_stack

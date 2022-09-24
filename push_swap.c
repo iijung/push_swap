@@ -6,20 +6,11 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 08:48:43 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/21 22:04:08 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/25 00:01:40 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	aashow(void *num)
-{
-	int	*n;
-
-	n = num;
-	if (*n)
-		ft_printf("%d ", *n);
-}
 
 static int	in(t_data *data, int size, char **strs)
 {
@@ -48,9 +39,9 @@ static unsigned int	sort_count(t_stack *st, int asc)
 		if (*(int *)(curr->content) == *(int *)(curr->next->content))
 			return (-1);
 		if (asc && *(int *)(curr->content) > *(int *)(curr->next->content))
-			break;
+			break ;
 		if (!asc && *(int *)(curr->content) < *(int *)(curr->next->content))
-			break;
+			break ;
 		++cnt;
 		curr = curr->next;
 	}
@@ -59,80 +50,26 @@ static unsigned int	sort_count(t_stack *st, int asc)
 
 static int	run(t_data *data)
 {
-	int	cnt = 0;
-	int	sorted = sort_count(&data->a, 1);
-	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
-	ft_lstiter(data->a.front, aashow);
-	ft_printf(" / ");
-	ft_lstiter(data->b.front, aashow);
-	ft_printf("\n");
+	int	cnt;
+	int	sorted;
+
+	cnt = 1;
+	sorted = sort_count(&data->a, 1);
 	while (sorted != data->a.cnt)
 	{
-#if 0
-		data_cmd("sa", data);
-		data_cmd("pb", data);
-		data_cmd("pb", data);
-		data_cmd("pb", data);
-		data_cmd("sa", data);
-		data_cmd("pa", data);
-		data_cmd("pa", data);
-		data_cmd("pa", data);
-#else
-	if (data_command(data, "sa") < 0) return (-1);
-	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
-	ft_lstiter(data->a.front, aashow);
-	ft_printf(" / ");
-	ft_lstiter(data->b.front, aashow);
-	ft_printf("\n");
-	if (data_command(data, "pb") < 0) return (-1);
-	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
-	ft_lstiter(data->a.front, aashow);
-	ft_printf(" / ");
-	ft_lstiter(data->b.front, aashow);
-	ft_printf("\n");
-	if (data_command(data, "pb") < 0) return (-1);
-	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
-	ft_lstiter(data->a.front, aashow);
-	ft_printf(" / ");
-	ft_lstiter(data->b.front, aashow);
-	ft_printf("\n");
-	if (data_command(data, "pb") < 0) return (-1);
-	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
-	ft_lstiter(data->a.front, aashow);
-	ft_printf(" / ");
-	ft_lstiter(data->b.front, aashow);
-	ft_printf("\n");
-	if (data_command(data, "sa") < 0) return (-1);
-	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
-	ft_lstiter(data->a.front, aashow);
-	ft_printf(" / ");
-	ft_lstiter(data->b.front, aashow);
-	ft_printf("\n");
-	if (data_command(data, "pa") < 0) return (-1);
-	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
-	ft_lstiter(data->a.front, aashow);
-	ft_printf(" / ");
-	ft_lstiter(data->b.front, aashow);
-	ft_printf("\n");
-
-	if (data_command(data, "pa") < 0) return (-1);
-	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
-	ft_lstiter(data->a.front, aashow);
-	ft_printf(" / ");
-	ft_lstiter(data->b.front, aashow);
-	ft_printf("\n");
-
-	if (data_command(data, "pa") < 0) return (-1);
-	ft_printf("### f[%2d] r[%2d] sorted[%d]: ", data->a.front, data->a.rear, sorted);
-	ft_lstiter(data->a.front, aashow);
-	ft_printf(" / ");
-	ft_lstiter(data->b.front, aashow);
-	ft_printf("\n");
-
+#if 1
+		if (data_command(data, "sa") < 0) return (-1);;
+		if (data_command(data, "pb") < 0) return (-1);;
+		if (data_command(data, "pb") < 0) return (-1);;
+		if (data_command(data, "pb") < 0) return (-1);;
+		if (data_command(data, "sa") < 0) return (-1);;
+		if (data_command(data, "pa") < 0) return (-1);;
+		if (data_command(data, "pa") < 0) return (-1);;
+		if (data_command(data, "pa") < 0) return (-1);;
+#endif
 		sleep(1);
 		++cnt;
 		sorted = sort_count(&data->a, 1);
-#endif
 	}
 	ft_printf("cnt : %d\n", cnt);
 	return (0);
@@ -147,7 +84,7 @@ int	main(int argc, char **argv)
 {
 	t_data	data;
 
-//	atexit(test_leak);
+	//atexit(test_leak);
 	if (argc < 2)
 		exit(-1);
 	while (1)

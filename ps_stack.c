@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 11:16:54 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/21 21:15:14 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/24 23:48:31 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static int	pop(t_stack *st, int *rtn, int is_front)
 		return (-1);
 	st->cnt--;
 	*rtn = *(int *)curr->content;
+	free(curr->content);
 	free(curr);
 	return (0);
 }
@@ -69,7 +70,7 @@ static int	swap(struct s_stack *st)
 {
 	int	tmp;
 
-	if (st == 0 )
+	if (st == 0)
 		return (-1);
 	if (st->front == 0 || st->front->next == 0)
 		return (0);
@@ -83,7 +84,7 @@ static int	rotate(struct s_stack *st, int to_left)
 {
 	int	tmp;
 
-	if (st == 0 )
+	if (st == 0)
 		return (-1);
 	if (to_left)
 	{
