@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2022/09/21 22:01:51 by minjungk         ###   ########.fr        #
+#    Updated: 2022/09/25 19:56:13 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,10 +44,10 @@ endif
 NAME = push_swap
 
 src_m = \
+		deque.c \
 		push_swap.c \
-		push_swap_in.c \
-		ps_stack.c \
-		ps_data.c \
+		ps_init.c \
+		ps_parse.c \
 
 src_b = \
 		push_swap.c
@@ -71,7 +71,7 @@ $(LIBS):
 
 clean:
 	$Q$(MAKE) -C $(dir $(LIBS)) clean
-	$Q$(RM) $(OBJS) $(DEPS)
+	$Q$(RM) $(wildcard *.o) $(wildcard *.d)
 
 fclean: clean
 	$Q$(RM) $(LIBS) $(NAME)

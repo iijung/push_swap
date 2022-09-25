@@ -1,24 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_in.c                                     :+:      :+:    :+:   */
+/*   ps_parse.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 15:41:25 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/24 21:10:56 by minjungk         ###   ########.fr       */
+/*   Created: 2022/09/25 17:22:55 by minjungk          #+#    #+#             */
+/*   Updated: 2022/09/25 19:43:37 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	ft_error(void)
-{
-	ft_putstr_fd("Error\n", 2);
-	exit(-1);
-}
-
-static int	data_atoi(const char *str, int *rtn)
+static int	ps_atoi(const char *str, int *rtn)
 {
 	int				minus;
 
@@ -26,12 +20,12 @@ static int	data_atoi(const char *str, int *rtn)
 	if (*str == '+' || *str == '-')
 		minus = *str++ == '-';
 	if (!('0' <= *str && *str <= '9'))
-		ft_error();
+		return (-1);
 	*rtn = 0;
 	while ('0' <= *str && *str <= '9')
 	{
 		if (*rtn > 214748364 || (*rtn == 214748364 && (*str > '7' + minus)))
-			ft_error();
+			return (-1);
 		*rtn = *rtn * 10 + *str++ - '0';
 	}
 	if (minus)
@@ -39,14 +33,14 @@ static int	data_atoi(const char *str, int *rtn)
 	return (0);
 }
 
-int	data_parse(t_data *data, int size, char **strs)
+int	ps_parse(t_push_swap *ps, int size, char **strs)
 {
 	int		i;
 	int		j;
 	int		num;
 	char	**split;
 
-	if (data == 0 || size == 0 || strs == 0)
+	if (ps == 0 || size == 0 || strs == 0)
 		return (-1);
 	i = -1;
 	while (++i < size)
@@ -57,10 +51,10 @@ int	data_parse(t_data *data, int size, char **strs)
 		j = -1;
 		while (split[++j])
 		{
-			if (data_atoi(split[j], &num) < 0)
-				ft_error();
-			if (data->a.push(&data->a, num, 0) < 0)
-				ft_error();
+			if (ps_atoi(split[j], &num) < 0)
+				return (-1);
+			if (ps->a.enque(&ps->a, 1, num) < 0)
+				return (-1);
 			free(split[j]);
 		}
 		free(split);
