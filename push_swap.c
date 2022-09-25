@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:05:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/25 19:43:31 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:45:04 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 		exit(-1);
 	while (1)
 	{
-		if (ps_init(&ps) < 0)
+		if (ps_init(&ps, show_cli) < 0)
 			break ;
 		if (ps_parse(&ps, argc - 1, argv + 1) < 0)
 			break ;
