@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 20:07:19 by minjungk          #+#    #+#              #
-#    Updated: 2022/09/18 21:08:34 by minjungk         ###   ########.fr        #
+#    Updated: 2022/09/25 19:51:39 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,7 +98,7 @@ $(NAME): $(OBJS)
 	$Q$(AR) $(ARFLAGS) $@ $^
 
 clean:
-	$(RM) $(OBJS) $(DEPS)
+	$Q$(RM) $(OBJS) $(DEPS)
 
 fclean: clean
 	$Q$(RM) $(NAME)
