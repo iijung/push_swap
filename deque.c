@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:23:54 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/27 23:24:14 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/27 23:50:29 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,8 @@ static int	enque(struct s_deque *dq, int is_rear, int num)
 {
 	t_deque_node	*new;
 
-	if (!dq || (is_rear != 0 && is_rear != 1))
-		return (-1);
 	new = ft_calloc(1, sizeof(t_deque_node));
-	if (!new)
+	if (!dq || (is_rear != 0 && is_rear != 1) || !new)
 		return (-1);
 	new->num = num;
 	if (!dq->node[is_rear])
