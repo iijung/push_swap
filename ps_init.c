@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/25 21:50:41 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/27 23:10:59 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	push(struct s_push_swap *ps, char cmd)
 		return (-1);
 	if (from_to[0]->node[0] == 0)
 		return (0);
- 	if (from_to[0]->deque(from_to[0], 0, &tmp) < 0
+	if (from_to[0]->deque(from_to[0], 0, &tmp) < 0
 		|| from_to[1]->enque(from_to[1], 0, tmp) < 0)
 		return (-1);
 	return (0);
@@ -63,7 +63,7 @@ static int	swap(struct s_push_swap *ps, char cmd)
 	return (0);
 }
 
-static int rotate(struct s_push_swap *ps, char cmd, int is_reverse)
+static int	rotate(struct s_push_swap *ps, char cmd, int is_reverse)
 {
 	int		tmp;
 

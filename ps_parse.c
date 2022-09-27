@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:22:55 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/25 19:43:37 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/27 23:09:01 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	ps_atoi(const char *str, int *rtn)
 {
-	int				minus;
+	int	minus;
 
 	minus = 0;
 	if (*str == '+' || *str == '-')
@@ -33,11 +33,31 @@ static int	ps_atoi(const char *str, int *rtn)
 	return (0);
 }
 
+static int	ps_set(t_push_swap *ps, char *str)
+{
+	int				num;
+	t_deque_node	*curr;
+
+	if (ps == 0 || str == 0)
+		return (-1);
+	if (ps_atoi(str, &num) < 0)
+		return (-1);
+	curr = ps->a.node[0];
+	while (curr)
+	{
+		if (curr->num == num)
+			return (-1);
+		curr = curr->next;
+	}
+	if (ps->a.enque(&ps->a, 1, num) < 0)
+		return (-1);
+	return (0);
+}
+
 int	ps_parse(t_push_swap *ps, int size, char **strs)
 {
 	int		i;
 	int		j;
-	int		num;
 	char	**split;
 
 	if (ps == 0 || size == 0 || strs == 0)
@@ -51,9 +71,7 @@ int	ps_parse(t_push_swap *ps, int size, char **strs)
 		j = -1;
 		while (split[++j])
 		{
-			if (ps_atoi(split[j], &num) < 0)
-				return (-1);
-			if (ps->a.enque(&ps->a, 1, num) < 0)
+			if (ps_set(ps, split[j]) < 0)
 				return (-1);
 			free(split[j]);
 		}
