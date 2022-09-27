@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:23:54 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/25 20:04:58 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/27 23:24:14 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	deque(struct s_deque *dq, int is_rear, int *num)
 	}
 	else
 	{
-		dq->node[0] = dq->node[1]->next;
+		dq->node[0] = dq->node[0]->next;
 		if (!dq->node[0])
 			dq->node[1] = 0;
 		else
