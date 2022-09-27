@@ -17,10 +17,10 @@ static int	idx(struct s_deque *dq, int idx, int *num)
 	int				i;
 	t_deque_node	*curr;
 
-	if (dq == 0 || num == 0 || idx < dq->size)
+	if (dq == 0 || num == 0 || idx >= dq->size)
 		return (-1);
 	curr = dq->node[0];
-	i = 0;
+	i = -1;
 	while (++i < idx)
 	{
 		if (curr == 0)
@@ -55,6 +55,7 @@ static int	deque(struct s_deque *dq, int is_rear, int *num)
 			dq->node[0]->prev = 0;
 	}
 	*num = tmp->num;
+	dq->size -= 1;
 	free(tmp);
 	return (0);
 }
@@ -85,6 +86,7 @@ static int	enque(struct s_deque *dq, int is_rear, int num)
 		dq->node[0]->prev = new;
 	}
 	dq->node[is_rear] = new;
+	dq->size += 1;
 	return (0);
 }
 
