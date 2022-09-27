@@ -45,7 +45,7 @@ static int	swap(struct s_push_swap *ps, char cmd)
 {
 	if (ps == 0)
 		return (-1);
-	if (cmd == 'r')
+	if (cmd == 's')
 	{
 		if (swap(ps, 'a') < 0 || swap(ps, 'b') < 0)
 			return (-1);
@@ -76,12 +76,14 @@ static int	rotate(struct s_push_swap *ps, char cmd, int is_reverse)
 	}
 	else if (cmd == 'a' && ps->a.node[0])
 	{
-		if (ps->a.deque(&ps->a, 0, &tmp) < 0 || ps->a.enque(&ps->a, 1, tmp) < 0)
+		if (ps->a.deque(&ps->a, is_reverse, &tmp) < 0
+			|| ps->a.enque(&ps->a, !is_reverse, tmp) < 0)
 			return (-1);
 	}
 	else if (cmd == 'b' && ps->b.node[0])
 	{
-		if (ps->b.deque(&ps->b, 0, &tmp) < 0 || ps->b.enque(&ps->b, 1, tmp) < 0)
+		if (ps->b.deque(&ps->b, is_reverse, &tmp) < 0
+			|| ps->b.enque(&ps->b, !is_reverse, tmp) < 0)
 			return (-1);
 	}
 	return (0);
