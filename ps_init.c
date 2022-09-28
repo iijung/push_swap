@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/27 23:10:59 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/28 16:46:19 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	push(struct s_push_swap *ps, char cmd)
 {
-	int		tmp;
-	t_deque	*from_to[2];
+	t_deque_node	*tmp;
+	t_deque			*from_to[2];
 
 	if (ps == 0)
 		return (-1);
@@ -65,7 +65,7 @@ static int	swap(struct s_push_swap *ps, char cmd)
 
 static int	rotate(struct s_push_swap *ps, char cmd, int is_reverse)
 {
-	int		tmp;
+	t_deque_node	*tmp;
 
 	if (ps == 0)
 		return (-1);

@@ -6,38 +6,17 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:23:54 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/27 23:50:29 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/28 16:45:55 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	idx(struct s_deque *dq, int idx, int *num)
+static int	deque(struct s_deque *dq, int is_rear, t_deque_node **node)
 {
-	int				i;
-	t_deque_node	*curr;
-
-	if (dq == 0 || num == 0 || idx >= dq->size)
+	if (!dq || (is_rear != 0 && is_rear != 1) || !node || !dq->node[is_rear])
 		return (-1);
-	curr = dq->node[0];
-	i = -1;
-	while (++i < idx)
-	{
-		if (curr == 0)
-			return (-1);
-		curr = curr->next;
-	}
-	*num = curr->num;
-	return (0);
-}
-
-static int	deque(struct s_deque *dq, int is_rear, int *num)
-{
-	t_deque_node	*tmp;
-
-	if (!dq || (is_rear != 0 && is_rear != 1) || !num || !dq->node[is_rear])
-		return (-1);
-	tmp = dq->node[is_rear];
+	*node = dq->node[is_rear];
 	if (is_rear)
 	{
 		dq->node[1] = dq->node[1]->prev;
@@ -54,51 +33,47 @@ static int	deque(struct s_deque *dq, int is_rear, int *num)
 		else
 			dq->node[0]->prev = 0;
 	}
-	*num = tmp->num;
 	dq->size -= 1;
-	free(tmp);
+	(*node)->prev = 0;
+	(*node)->next = 0;
 	return (0);
 }
 
-static int	enque(struct s_deque *dq, int is_rear, int num)
+static int	enque(struct s_deque *dq, int is_rear, t_deque_node *node)
 {
-	t_deque_node	*new;
-
-	new = ft_calloc(1, sizeof(t_deque_node));
-	if (!dq || (is_rear != 0 && is_rear != 1) || !new)
+	if (!dq || (is_rear != 0 && is_rear != 1) || !node)
 		return (-1);
-	new->num = num;
 	if (!dq->node[is_rear])
 	{
-		dq->node[0] = new;
-		dq->node[1] = new;
+		dq->node[0] = node;
+		dq->node[1] = node;
 	}
 	else if (is_rear)
 	{
-		new->prev = dq->node[1];
-		dq->node[1]->next = new;
+		node->prev = dq->node[1];
+		dq->node[1]->next = node;
 	}
 	else
 	{
-		new->next = dq->node[0];
-		dq->node[0]->prev = new;
+		node->next = dq->node[0];
+		dq->node[0]->prev = node;
 	}
-	dq->node[is_rear] = new;
+	dq->node[is_rear] = node;
 	dq->size += 1;
 	return (0);
 }
 
 static int	swap(struct s_deque *dq)
 {
-	int	tmp;
-
 	if (dq == 0)
 		return (-1);
 	if (dq->node[0] == 0 || dq->node[0]->next == 0)
 		return (0);
-	tmp = dq->node[0]->num;
-	dq->node[0]->num = dq->node[0]->next->num;
-	dq->node[0]->next->num = tmp;
+	dq->node[0]->prev = dq->node[0]->next;
+	dq->node[0]->next = dq->node[0]->next->next;
+	dq->node[0] = dq->node[0]->prev;
+	dq->node[0]->next = dq->node[0]->prev;
+	dq->node[0]->prev = 0;
 	return (0);
 }
 
@@ -107,7 +82,6 @@ int	deque_init(struct s_deque *dq)
 	if (dq == 0)
 		return (-1);
 	ft_memset(dq, 0, sizeof(t_deque));
-	dq->idx = idx;
 	dq->deque = deque;
 	dq->enque = enque;
 	dq->swap = swap;

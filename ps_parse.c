@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:22:55 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/27 23:09:01 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/28 16:42:01 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,24 @@ static int	ps_atoi(const char *str, int *rtn)
 
 static int	ps_set(t_push_swap *ps, char *str)
 {
-	int				num;
+	t_deque_node	*new;
 	t_deque_node	*curr;
 
 	if (ps == 0 || str == 0)
 		return (-1);
-	if (ps_atoi(str, &num) < 0)
+	new = ft_calloc(1, sizeof(t_deque_node));
+	if (new == 0)
+		return (-1);
+	if (ps_atoi(str, &new->num) < 0)
 		return (-1);
 	curr = ps->a.node[0];
 	while (curr)
 	{
-		if (curr->num == num)
+		if (curr->num == new->num)
 			return (-1);
 		curr = curr->next;
 	}
-	if (ps->a.enque(&ps->a, 1, num) < 0)
+	if (ps->a.enque(&ps->a, 1, new) < 0)
 		return (-1);
 	return (0);
 }
