@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:22:55 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/28 16:42:01 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/28 17:02:51 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,33 @@ static int	ps_atoi(const char *str, int *rtn)
 	return (0);
 }
 
+static int	ps_rank(t_deque *dq, int num)
+{
+	unsigned int	rank;
+	t_deque_node	*self;
+	t_deque_node	*curr;
+
+	if (dq == 0)
+		return (-1);
+	rank = 0;
+	self = 0;
+	curr = dq->node[0];
+	while (curr)
+	{
+		if (curr->num == num)
+			self = curr;
+		else if (curr->num < num)
+			rank += 1;
+		else if (curr->num > num)
+			curr->rank += 1;
+		curr = curr->next;
+	}
+	if (self == 0)
+		return (-1);
+	self->rank = rank;
+	return (0);
+}
+
 static int	ps_set(t_push_swap *ps, char *str)
 {
 	t_deque_node	*new;
@@ -53,6 +80,8 @@ static int	ps_set(t_push_swap *ps, char *str)
 		curr = curr->next;
 	}
 	if (ps->a.enque(&ps->a, 1, new) < 0)
+		return (-1);
+	if (ps_rank(&ps->a, new->num) < 0)
 		return (-1);
 	return (0);
 }

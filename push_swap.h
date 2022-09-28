@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 22:23:34 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/28 16:55:02 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/09/28 16:56:31 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_push_swap	t_push_swap;
 struct s_deque_node
 {
 	int				num;
+	unsigned int	rank;
 	t_deque_node	*prev;
 	t_deque_node	*next;
 };
