@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 22:23:34 by minjungk          #+#    #+#             */
-/*   Updated: 2022/09/28 16:56:31 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/02 04:10:12 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ struct s_deque
 {
 	unsigned int	size;
 	t_deque_node	*node[2];
+	unsigned int	(*sorted)(struct s_deque *, int, int);
 	int				(*deque)(struct s_deque *, int, t_deque_node **);
 	int				(*enque)(struct s_deque *, int, t_deque_node *);
 	int				(*swap)(struct s_deque *dq);
@@ -37,10 +38,11 @@ struct s_deque
 
 struct s_push_swap
 {
-	t_deque	a;
-	t_deque	b;
-	void	(*show)(struct s_push_swap *);
-	int		(*command)(struct s_push_swap *, char *);
+	unsigned int	max;
+	t_deque			a;
+	t_deque			b;
+	void			(*show)(struct s_push_swap *);
+	int				(*command)(struct s_push_swap *, char *);
 };
 
 int		deque_init(struct s_deque *dq);
