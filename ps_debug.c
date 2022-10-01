@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 20:16:23 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/02 03:10:51 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/02 04:42:35 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ void	show_cli(struct s_push_swap *ps)
 	curr = ps->a.node[0];
 	while (curr)
 	{
-		ft_printf("%02u ", curr->priority);
+		ft_printf("%u ", curr->rank);
 		curr = curr->next;
 	}
 	ft_printf(" / ");
 	curr = ps->b.node[0];
 	while (curr)
 	{
-		ft_printf("%02u ", curr->priority);
+		ft_printf("%u ", curr->rank);
 		curr = curr->next;
 	}
 	ft_printf("\n");

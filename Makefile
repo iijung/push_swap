@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2022/09/25 20:20:20 by minjungk         ###   ########.fr        #
+#    Updated: 2022/10/02 04:40:00 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,3 +81,7 @@ re: fclean
 	$Q$(MAKE)
 
 .PHONY: all clean fclean re bonus $(DIRS)
+
+seq = $(shell seq 9 | sort -uR)
+test: $(NAME)
+	./$(NAME) $(seq)

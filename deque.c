@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:23:54 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/02 04:10:08 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/02 04:32:03 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ static unsigned int	sorted(struct s_deque *dq, int is_rear, int asc)
 	return (cnt);
 }
 
-static int	deque(struct s_deque *dq, int is_rear, t_deque_node **node)
+static t_deque_node	*deque(struct s_deque *dq, int is_rear)
 {
-	if (!dq || (is_rear != 0 && is_rear != 1) || !node || !dq->node[is_rear])
-		return (-1);
-	*node = dq->node[is_rear];
+	t_deque_node	*node;
+
+	if (!dq || (is_rear != 0 && is_rear != 1))
+		ps_error();
+	node = dq->node[is_rear];
 	if (is_rear)
 	{
 		dq->node[1] = dq->node[1]->prev;
@@ -60,15 +62,15 @@ static int	deque(struct s_deque *dq, int is_rear, t_deque_node **node)
 			dq->node[0]->prev = 0;
 	}
 	dq->size -= 1;
-	(*node)->prev = 0;
-	(*node)->next = 0;
-	return (0);
+	node->prev = 0;
+	node->next = 0;
+	return (node);
 }
 
-static int	enque(struct s_deque *dq, int is_rear, t_deque_node *node)
+static void	enque(struct s_deque *dq, int is_rear, t_deque_node *node)
 {
 	if (!dq || (is_rear != 0 && is_rear != 1) || !node)
-		return (-1);
+		ps_error();
 	if (!dq->node[is_rear])
 	{
 		dq->node[0] = node;
@@ -86,31 +88,28 @@ static int	enque(struct s_deque *dq, int is_rear, t_deque_node *node)
 	}
 	dq->node[is_rear] = node;
 	dq->size += 1;
-	return (0);
 }
 
-static int	swap(struct s_deque *dq)
+static void	swap(struct s_deque *dq)
 {
 	if (dq == 0)
-		return (-1);
+		ps_error();
 	if (dq->node[0] == 0 || dq->node[0]->next == 0)
-		return (0);
+		return ;
 	dq->node[0]->prev = dq->node[0]->next;
 	dq->node[0]->next = dq->node[0]->next->next;
 	dq->node[0] = dq->node[0]->prev;
 	dq->node[0]->next = dq->node[0]->prev;
 	dq->node[0]->prev = 0;
-	return (0);
 }
 
-int	deque_init(struct s_deque *dq)
+void	deque_init(struct s_deque *dq)
 {
 	if (dq == 0)
-		return (-1);
+		ps_error();
 	ft_memset(dq, 0, sizeof(t_deque));
 	dq->sorted = sorted;
 	dq->deque = deque;
 	dq->enque = enque;
 	dq->swap = swap;
-	return (0);
 }
