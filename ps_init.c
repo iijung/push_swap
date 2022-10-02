@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/02 10:27:47 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/02 17:39:10 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ static void	command(struct s_push_swap *ps, char *cmd)
 		rotate(ps, cmd[2], 1);
 	else
 		ps_error();
+	ft_printf("%4s\t", cmd);
+	ps->show(ps);
+	usleep(200000);
 }
 
 void	ps_init(struct s_push_swap *ps, void (*show)(struct s_push_swap *))

@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 20:16:23 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/02 04:42:35 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/02 17:52:52 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	show_gui(struct s_push_swap *ps)
 	while (curr_a || curr_b)
 	{
 		i = -1;
-		while (++i < 20)
+		while (++i < 50)
 			ft_printf("%c", ' ' + (curr_a && i < curr_a->num) * 3);
 		ft_printf(" | ");
 		i = -1;
-		while (++i < 20)
+		while (++i < 50)
 			ft_printf("%c", ' ' + (curr_b && i < curr_b->num) * 3);
 		ft_printf("\n");
 		if (curr_a)
@@ -38,7 +38,7 @@ void	show_gui(struct s_push_swap *ps)
 		if (curr_b)
 			curr_b = curr_b->next;
 	}
-	usleep(200000);
+	usleep(10000);
 }
 
 void	show_cli(struct s_push_swap *ps)

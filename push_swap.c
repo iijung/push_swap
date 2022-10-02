@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:05:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/02 04:37:04 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/02 20:52:30 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,15 @@ void	ps_error(void)
 	exit(-1);
 }
 
+void	ps_solve(t_push_swap *ps)
+{
+	if (ps == 0)
+		ps_error();
+	ps_atob(ps);
+	ps_btoa(ps);
+	ps->show(ps);
+}
+
 int	main(int argc, char **argv)
 {
 	t_push_swap	ps;
@@ -26,6 +35,6 @@ int	main(int argc, char **argv)
 		exit(-1);
 	ps_init(&ps, show_cli);
 	ps_parse(&ps, argc - 1, argv + 1);
-	ps.show(&ps);
+	ps_solve(&ps);
 	exit(0);
 }
