@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:23:54 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/02 04:32:03 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/02 10:21:08 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ static void	swap(struct s_deque *dq)
 		return ;
 	dq->node[0]->prev = dq->node[0]->next;
 	dq->node[0]->next = dq->node[0]->next->next;
+	dq->node[0]->prev->next = dq->node[0];
+	dq->node[0]->next->prev = dq->node[0];
 	dq->node[0] = dq->node[0]->prev;
 	dq->node[0]->next = dq->node[0]->prev;
 	dq->node[0]->prev = 0;
