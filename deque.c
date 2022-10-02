@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:23:54 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/02 10:21:08 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/02 17:25:50 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,22 @@ static void	enque(struct s_deque *dq, int is_rear, t_deque_node *node)
 
 static void	swap(struct s_deque *dq)
 {
+	t_deque_node	*a;
+	t_deque_node	*b;
+
 	if (dq == 0)
 		ps_error();
 	if (dq->node[0] == 0 || dq->node[0]->next == 0)
 		return ;
-	dq->node[0]->prev = dq->node[0]->next;
-	dq->node[0]->next = dq->node[0]->next->next;
-	dq->node[0]->prev->next = dq->node[0];
-	dq->node[0]->next->prev = dq->node[0];
-	dq->node[0] = dq->node[0]->prev;
-	dq->node[0]->next = dq->node[0]->prev;
-	dq->node[0]->prev = 0;
+	a = dq->node[0];
+	b = dq->node[0]->next;
+	a->prev = b;
+	a->next = b->next;
+	b->prev = 0;
+	b->next = a;
+	if (a->next)
+		a->next->prev = a;
+	dq->node[0] = b;
 }
 
 void	deque_init(struct s_deque *dq)
