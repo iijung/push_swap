@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/02 04:38:28 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/02 10:27:47 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,10 @@ static void	swap(struct s_push_swap *ps, char cmd)
 {
 	if (ps == 0)
 		ps_error();
-	if (cmd == 'a')
+	if (cmd == 's' || cmd == 'a')
 		ps->a.swap(&ps->a);
-	if (cmd == 'b')
+	if (cmd == 's' || cmd == 'b')
 		ps->b.swap(&ps->b);
-	if (cmd != 's')
-		ps_error();
-	ps->a.swap(&ps->a);
-	ps->b.swap(&ps->b);
 }
 
 static void	rotate(struct s_push_swap *ps, char cmd, int is_reverse)
