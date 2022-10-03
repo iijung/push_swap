@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:23:54 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/02 17:25:50 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:01:36 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ static void	enque(struct s_deque *dq, int is_rear, t_deque_node *node)
 	dq->size += 1;
 }
 
-static void	swap(struct s_deque *dq)
+static unsigned int	swap(struct s_deque *dq)
 {
 	t_deque_node	*a;
 	t_deque_node	*b;
@@ -98,7 +98,7 @@ static void	swap(struct s_deque *dq)
 	if (dq == 0)
 		ps_error();
 	if (dq->node[0] == 0 || dq->node[0]->next == 0)
-		return ;
+		return (0);
 	a = dq->node[0];
 	b = dq->node[0]->next;
 	a->prev = b;
@@ -108,6 +108,7 @@ static void	swap(struct s_deque *dq)
 	if (a->next)
 		a->next->prev = a;
 	dq->node[0] = b;
+	return (1);
 }
 
 void	deque_init(struct s_deque *dq)

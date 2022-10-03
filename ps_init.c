@@ -6,13 +6,13 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/02 17:39:10 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/03 17:15:41 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	push(struct s_push_swap *ps, char cmd)
+static unsigned int	push(struct s_push_swap *ps, char cmd)
 {
 	t_deque_node	*tmp;
 	t_deque			*from_to[2];
@@ -29,66 +29,78 @@ static void	push(struct s_push_swap *ps, char cmd)
 		from_to[0] = &ps->a;
 		from_to[1] = &ps->b;
 	}
-	else
-		ps_error();
-	if (from_to[0] == 0 || from_to[1] == 0)
-		ps_error();
 	if (from_to[0]->node[0] == 0)
-		return ;
+		return (0);
 	tmp = from_to[0]->deque(from_to[0], 0);
 	from_to[1]->enque(from_to[1], 0, tmp);
+	return (1);
 }
 
-static void	swap(struct s_push_swap *ps, char cmd)
-{
-	if (ps == 0)
-		ps_error();
-	if (cmd == 's' || cmd == 'a')
-		ps->a.swap(&ps->a);
-	if (cmd == 's' || cmd == 'b')
-		ps->b.swap(&ps->b);
-}
-
-static void	rotate(struct s_push_swap *ps, char cmd, int is_reverse)
+static unsigned int	rotate(struct s_push_swap *ps, char *cmd)
 {
 	t_deque_node	*tmp;
+	int				is_reverse;
 
 	if (ps == 0)
 		ps_error();
-	if (cmd == 'r')
-	{
-		rotate(ps, 'a', is_reverse);
-		rotate(ps, 'b', is_reverse);
-	}
-	else if (cmd == 'a' && ps->a.node[0])
+	if (ft_strncmp(cmd, "rr", 3) == 0)
+		return (rotate(ps, "ra") || rotate(ps, "rb"));
+	if (ft_strncmp(cmd, "rrr", 4) == 0)
+		return (rotate(ps, "rra") || rotate(ps, "rrb"));
+	is_reverse = ft_strncmp(cmd, "rr", 2) == 0;
+	if (cmd[is_reverse + 1] == 'a' && ps->a.node[0])
 	{
 		tmp = ps->a.deque(&ps->a, is_reverse);
 		ps->a.enque(&ps->a, !is_reverse, tmp);
 	}
-	else if (cmd == 'b' && ps->b.node[0])
+	else if (cmd[is_reverse + 1] == 'b' && ps->b.node[0])
 	{
 		tmp = ps->b.deque(&ps->b, is_reverse);
 		ps->b.enque(&ps->b, !is_reverse, tmp);
 	}
+	else
+		return (0);
+	return (1);
+}
+
+static void	add_command(struct s_push_swap *ps, char *cmd)
+{
+	t_list			*new;
+	char			*command;
+
+	command = ft_strdup(cmd);
+	if (command == 0)
+		ps_error();
+	new = ft_lstnew(command);
+	if (new == 0)
+		ps_error();
+	ft_lstadd_front(&ps->command_list, new);
+	ft_printf("%s\n", cmd);
 }
 
 static void	command(struct s_push_swap *ps, char *cmd)
 {
+	unsigned int	ret;
+
+	ret = 0;
 	if (ps == 0 || cmd == 0)
 		ps_error();
-	if (!cmd[2] && cmd[0] == 'p' && ft_strchr("ab", cmd[1]))
-		push(ps, cmd[1]);
-	else if (!cmd[2] && cmd[0] == 's' && ft_strchr("sab", cmd[1]))
-		swap(ps, cmd[1]);
-	else if (!cmd[2] && cmd[0] == 'r' && ft_strchr("rab", cmd[1]))
-		rotate(ps, cmd[1], 0);
-	else if (!cmd[3] && !ft_memcmp(cmd, "rr", 2) && ft_strchr("rab", cmd[2]))
-		rotate(ps, cmd[2], 1);
+	else if (ft_strncmp(cmd, "pa", 3) == 0 || ft_strncmp(cmd, "pb", 3) == 0)
+		ret = push(ps, cmd[1]);
+	else if (ft_strncmp(cmd, "ss", 3) == 0)
+		ret = (ps->a.swap(&ps->a) && ps->b.swap(&ps->b));
+	else if (ft_strncmp(cmd, "sa", 3) == 0)
+		ret = ps->a.swap(&ps->a);
+	else if (ft_strncmp(cmd, "sb", 3) == 0)
+		ret = ps->b.swap(&ps->b);
+	else if (ft_strncmp(cmd, "rr", 3) == 0 || ft_strncmp(cmd, "rrr", 4) == 0
+		|| ft_strncmp(cmd, "ra", 3) == 0 || ft_strncmp(cmd, "rra", 4) == 0
+		|| ft_strncmp(cmd, "rb", 3) == 0 || ft_strncmp(cmd, "rrb", 4) == 0)
+		ret = rotate(ps, cmd);
 	else
 		ps_error();
-	ft_printf("%4s\t", cmd);
-	ps->show(ps);
-	usleep(200000);
+	if (ret)
+		add_command(ps, cmd);
 }
 
 void	ps_init(struct s_push_swap *ps, void (*show)(struct s_push_swap *))
