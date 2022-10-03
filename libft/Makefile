@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 20:07:19 by minjungk          #+#    #+#              #
-#    Updated: 2022/09/25 19:51:39 by minjungk         ###   ########.fr        #
+#    Updated: 2022/10/03 14:29:02 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ CFLAGS = -Wall -Wextra -Werror -MMD -MP
 
 ifdef DEBUG
 	CFLAGS += -O0 -g -fsanitize=address,undefined
+	LDFLAGS += -fsanitize=address,undefined
 endif
 
 Q = @
