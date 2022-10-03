@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:05:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/02 20:52:30 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/04 05:20:09 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@ void	ps_solve(t_push_swap *ps)
 {
 	if (ps == 0)
 		ps_error();
-	ps_atob(ps);
-	ps_btoa(ps);
-	ps->show(ps);
+	ps_atob(ps, ps->max, 0);
 }
 
 int	main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/03 17:15:41 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/04 04:19:47 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,16 @@ static void	add_command(struct s_push_swap *ps, char *cmd)
 	if (new == 0)
 		ps_error();
 	ft_lstadd_front(&ps->command_list, new);
-	ft_printf("%s\n", cmd);
+	if (ps->show)
+	{
+		ft_printf("%s\t", cmd);
+		ps->show(ps);
+	}
+	else
+		ft_printf("%s\n", cmd);
 }
 
-static void	command(struct s_push_swap *ps, char *cmd)
+static unsigned int	command(struct s_push_swap *ps, char *cmd)
 {
 	unsigned int	ret;
 
@@ -101,6 +107,7 @@ static void	command(struct s_push_swap *ps, char *cmd)
 		ps_error();
 	if (ret)
 		add_command(ps, cmd);
+	return (ret);
 }
 
 void	ps_init(struct s_push_swap *ps, void (*show)(struct s_push_swap *))
