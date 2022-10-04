@@ -6,71 +6,34 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:46:00 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/05 05:00:05 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/05 07:07:10 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	restore(t_push_swap *ps, unsigned int ra, unsigned int rb)
+static int	under3(t_push_swap *ps, unsigned int size, t_ps_value *val)
 {
-	if (ps == 0)
-		ps_error();
-	while (ra && rb)
-	{
-		ps->command(ps, "rrr");
-		--ra;
-		--rb;
-	}
-	while (ra--)
-		ps->command(ps, "rra");
-	while (rb--)
-		ps->command(ps, "rrb");
-}
-
-static void	pivot(t_deque *dq, unsigned int size, t_ps_value *val)
-{
-	t_deque_node	*curr;
-
-	if (dq == 0 || val == 0)
-		ps_error();
-	ft_memset(val, 0, sizeof(t_ps_value));
-	curr = dq->node[0];
-	if (curr == 0)
-		return ;
-	val->min = curr->rank;
-	val->max = curr->rank;
-	curr = curr->next;
-	while (val->idx++ < size && curr)
-	{
-		if (curr->rank < val->min)
-			val->min = curr->rank;
-		if (curr->rank > val->max)
-			val->max = curr->rank;
-		curr = curr->next;
-	}
-	val->idx = 0;
-	val->pivot1 = val->min + size / 3;
-	val->pivot2 = val->max - size / 3;
-}
-
-static int	under3(t_push_swap *ps, unsigned int size)
-{
-	t_ps_value		val;
 	t_deque_node	*node;
 
-	if (ps == 0)
+	if (ps == 0 || val == 0)
 		ps_error();
+	if (size == 0)
+		return (0);
 	if (size == 1)
 		return (ps->command(ps, "pa"));
-	pivot(&ps->b, size, &val);
-	if (ps->b.node[0]->rank == val.max)
+	if (size == 2)
+	{
+		if (ps->b.node[0]->rank < ps->b.node[1]->rank)
+			ps->command(ps, "sb");
+		return ((ps->command(ps, "pa") && (ps->command(ps, "pa"))));
+	}
+	ps_pivot(&ps->b, size, val);
+	if (ps->b.node[0]->rank == val->max)
 	{
 		ps->command(ps, "pa");
-		return (under3(ps, size - 1));
+		return (under3(ps, size - 1, val));
 	}
-	if (size == 2)
-		return (ps->command(ps, "sb") && under3(ps, 2));
 	node = ps->b.node[0];
 	if (node->next->rank > node->next->next->rank)
 	{
@@ -78,44 +41,36 @@ static int	under3(t_push_swap *ps, unsigned int size)
 			ps->command(ps, "rb");
 		else
 			ps->command(ps, "sb");
-		return (under3(ps, 3));
+		return (under3(ps, 3, val));
 	}
 	if (ps->b.size == 3)
 	{
 		ps->command(ps, "rrb");
-		return (under3(ps, 3));
+		return (under3(ps, 3, val));
 	}
 	ps->command(ps, "rb");
 	ps->command(ps, "rb");
 	ps->command(ps, "pa");
 	ps->command(ps, "rrb");
 	ps->command(ps, "rrb");
-	return (under3(ps, 2));
+	return (under3(ps, 2, val));
 }
 
-static int	check(t_push_swap *ps, unsigned int size)
+static int	check(t_push_swap *ps, unsigned int size, t_ps_value *val)
 {
-	unsigned int	sorted;
-
-	if (ps == 0)
+	if (ps == 0 || val == 0)
 		ps_error();
 	if (size == 0 || ps->b.node[0] == 0)
 		return (1);
-	if (ps->a.node[0] && ps->a.node[0]->rank == ps->b.node[0]->rank + 1)
-	{
-		ps->command(ps, "pa");
-		ps_btoa(ps, size - 1);
-		return (1);
-	}
-	if (size < 4)
-		return (under3(ps, size));
-	sorted = ps->b.sorted(&ps->b, 0, 0);
-	if (sorted >= size)
+	if (ps->b.sorted(&ps->b, 0, 0) >= size)
 	{
 		while (size--)
 			ps->command(ps, "pa");
 		return (1);
 	}
+	ps_pivot(&ps->b, size, val);
+	if (size < 4)
+		return (under3(ps, size, val));
 	return (0);
 }
 
@@ -125,8 +80,7 @@ void	ps_btoa(t_push_swap *ps, unsigned int size)
 
 	if (ps == 0)
 		ps_error();
-	pivot(&ps->b, size, &val);
-	if (check(ps, size))
+	if (check(ps, size, &val))
 		return ;
 	while (val.rb + val.push < size)
 	{
@@ -142,7 +96,7 @@ void	ps_btoa(t_push_swap *ps, unsigned int size)
 	if (ps->b.size == val.rb)
 		val.rb = 0;
 	ps_atob(ps, val.push - val.ra);
-	restore(ps, val.ra, val.rb);
+	ps_restore(ps, val.ra, val.rb);
 	ps_atob(ps, val.ra);
 	ps_btoa(ps, val.rb);
 }

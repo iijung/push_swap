@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/05 02:57:35 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/05 05:26:09 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ static void	add_command(struct s_push_swap *ps, char *cmd)
 		ft_printf("%s\t", cmd);
 		ps->show(ps);
 	}
-	else
-		ft_printf("%s\n", cmd);
 }
 
 static unsigned int	command(struct s_push_swap *ps, char *cmd)
