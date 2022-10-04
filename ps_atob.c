@@ -6,11 +6,27 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:46:00 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/04 05:31:12 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/05 04:59:49 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static void	restore(t_push_swap *ps, unsigned int ra, unsigned int rb)
+{
+	if (ps == 0)
+		ps_error();
+	while (ra && rb)
+	{
+		ps->command(ps, "rrr");
+		--ra;
+		--rb;
+	}
+	while (ra--)
+		ps->command(ps, "rra");
+	while (rb--)
+		ps->command(ps, "rrb");
+}
 
 static void	pivot(t_deque *dq, unsigned int size, t_ps_value *val)
 {
@@ -68,32 +84,25 @@ static int	under3(t_push_swap *ps, unsigned int size)
 	return (under3(ps, 3));
 }
 
-static int	check(t_push_swap *ps, unsigned int size)
+static int	check(t_push_swap *ps, unsigned int size, t_ps_value *val)
 {
-	unsigned int	sorted;
-
 	if (ps == 0)
 		ps_error();
-	if (size < 2 || ps->a.node[0] == 0)
-		return (1);
-	sorted = ps->a.sorted(&ps->a, 0, 1);
-	if (sorted >= size)
+	pivot(&ps->a, size, val);
+	if (size < 2 || ps->a.node[0] == 0 || ps->a.sorted(&ps->a, 0, 1) >= size)
 		return (1);
 	if (size < 4)
 		return (under3(ps, size));
 	return (0);
 }
 
-void	ps_atob(t_push_swap *ps, unsigned int size, unsigned int reverse)
+void	ps_atob(t_push_swap *ps, unsigned int size)
 {
 	t_ps_value		val;
 
 	if (ps == 0)
 		ps_error();
-	pivot(&ps->a, size, &val);
-	while (val.idx++ < reverse)
-		ps->command(ps, "rra");
-	if (check(ps, size))
+	if (check(ps, size, &val))
 		return ;
 	while (val.ra + val.push < val.size)
 	{
@@ -106,7 +115,10 @@ void	ps_atob(t_push_swap *ps, unsigned int size, unsigned int reverse)
 				val.rb += ps->command(ps, "rb");
 		}
 	}
-	ps_atob(ps, val.ra, val.ra);
-	ps_btoa(ps, val.rb, val.rb);
-	ps_btoa(ps, val.push - val.rb, 0);
+	if (ps->a.size == val.ra)
+		val.ra = 0;
+	restore(ps, val.ra, val.rb);
+	ps_atob(ps, val.ra);
+	ps_btoa(ps, val.rb);
+	ps_btoa(ps, val.push - val.rb);
 }

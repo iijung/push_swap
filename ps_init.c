@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/04 04:19:47 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/05 02:57:35 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ static unsigned int	rotate(struct s_push_swap *ps, char *cmd)
 	if (ps == 0)
 		ps_error();
 	if (ft_strncmp(cmd, "rr", 3) == 0)
-		return (rotate(ps, "ra") || rotate(ps, "rb"));
+		return ((rotate(ps, "ra") && rotate(ps, "rb")) || 1);
 	if (ft_strncmp(cmd, "rrr", 4) == 0)
-		return (rotate(ps, "rra") || rotate(ps, "rrb"));
+		return ((rotate(ps, "rra") && rotate(ps, "rrb")) || 1);
 	is_reverse = ft_strncmp(cmd, "rr", 2) == 0;
 	if (cmd[is_reverse + 1] == 'a' && ps->a.node[0])
 	{
@@ -74,7 +74,7 @@ static void	add_command(struct s_push_swap *ps, char *cmd)
 	new = ft_lstnew(command);
 	if (new == 0)
 		ps_error();
-	ft_lstadd_front(&ps->command_list, new);
+	ft_lstadd_back(&ps->command_list, new);
 	if (ps->show)
 	{
 		ft_printf("%s\t", cmd);
@@ -94,7 +94,7 @@ static unsigned int	command(struct s_push_swap *ps, char *cmd)
 	else if (ft_strncmp(cmd, "pa", 3) == 0 || ft_strncmp(cmd, "pb", 3) == 0)
 		ret = push(ps, cmd[1]);
 	else if (ft_strncmp(cmd, "ss", 3) == 0)
-		ret = (ps->a.swap(&ps->a) && ps->b.swap(&ps->b));
+		ret = ((ps->a.swap(&ps->a) && ps->b.swap(&ps->b)) || 1);
 	else if (ft_strncmp(cmd, "sa", 3) == 0)
 		ret = ps->a.swap(&ps->a);
 	else if (ft_strncmp(cmd, "sb", 3) == 0)
