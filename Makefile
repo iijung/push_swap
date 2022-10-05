@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2022/10/04 05:05:00 by minjungk         ###   ########.fr        #
+#    Updated: 2022/10/05 15:06:34 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ src_m = \
 		ps_parse.c \
 		ps_atob.c \
 		ps_btoa.c \
+		ps_solve.c \
 		ps_debug.c \
 
 src_b = \
@@ -85,7 +86,7 @@ re: fclean
 
 .PHONY: all clean fclean re bonus $(DIRS)
 
-seq = $(shell seq 30 | sort -R)
+seq = $(shell seq 100 | sort -R)
 test: $(NAME)
 	./$(NAME) $(seq)
 
