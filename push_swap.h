@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 22:23:34 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/05 14:57:11 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/07 07:16:11 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	ps_parse(struct s_push_swap *ps, int size, char **strs);
 
 void	ps_restore(t_push_swap *ps, unsigned int ra, unsigned int rb);
 void	ps_pivot(t_deque *dq, unsigned int size, t_ps_value *val);
-void	ps_atob(t_push_swap *ps, unsigned int size, unsigned int reverse);
-void	ps_btoa(t_push_swap *ps, unsigned int size, unsigned int reverse);
+void	ps_atob(t_push_swap *ps, unsigned int size);
+void	ps_btoa(t_push_swap *ps, unsigned int size);
 
 void	show_gui(struct s_push_swap *ps);
 void	show_cli(struct s_push_swap *ps);

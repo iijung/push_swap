@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:46:00 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/05 14:55:58 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/07 07:22:02 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,15 @@ static int	under3(t_push_swap *ps, unsigned int size)
 	return (under3(ps, 3));
 }
 
-static int	check(t_push_swap *ps, unsigned int size)
+static int	check(t_push_swap *ps, unsigned int size, t_ps_value *val)
 {
 	unsigned int	sorted;
 
-	if (ps == 0)
+	if (ps == 0 || val == 0)
 		ps_error();
 	if (size < 2 || ps->a.node[0] == 0)
 		return (1);
+	ps_pivot(&ps->a, size, val);
 	sorted = ps->a.sorted(&ps->a, 0, 1);
 	if (sorted >= size)
 		return (1);
@@ -57,16 +58,13 @@ static int	check(t_push_swap *ps, unsigned int size)
 	return (0);
 }
 
-void	ps_atob(t_push_swap *ps, unsigned int size, unsigned int reverse)
+void	ps_atob(t_push_swap *ps, unsigned int size)
 {
 	t_ps_value		val;
 
 	if (ps == 0)
 		ps_error();
-	ps_pivot(&ps->a, size, &val);
-	while (val.idx++ < reverse)
-		ps->command(ps, "rra");
-	if (check(ps, size))
+	if (check(ps, size, &val))
 		return ;
 	while (val.ra + val.push < val.size)
 	{
@@ -79,9 +77,8 @@ void	ps_atob(t_push_swap *ps, unsigned int size, unsigned int reverse)
 				val.rb += ps->command(ps, "rb");
 		}
 	}
-	if (ps->a.size == val.ra)
-		val.ra = 0;
-	ps_atob(ps, size - val.push, val.ra);
-	ps_btoa(ps, val.rb, val.rb);
-	ps_btoa(ps, val.push - val.rb, 0);
+	ps_restore(ps, val.ra, val.rb);
+	ps_atob(ps, size - val.push);
+	ps_btoa(ps, val.rb);
+	ps_btoa(ps, val.push - val.rb);
 }
