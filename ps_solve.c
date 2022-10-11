@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 06:07:24 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/05 06:23:39 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/11 23:47:01 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,15 @@ void	ps_pivot(t_deque *dq, unsigned int size, t_ps_value *val)
 		return ;
 	val->min = curr->rank;
 	val->max = curr->rank;
-	curr = curr->next;
-	while (val->idx++ < size && curr)
+	while (val->size < size && curr)
 	{
-		if (curr->rank < val->min)
-			val->min = curr->rank;
-		if (curr->rank > val->max)
-			val->max = curr->rank;
 		curr = curr->next;
+		if (curr && curr->rank < val->min)
+			val->min = curr->rank;
+		if (curr && curr->rank > val->max)
+			val->max = curr->rank;
+		val->size++;
 	}
-	val->idx = 0;
-	val->size = size;
 	val->pivot1 = val->min + size / 3;
 	val->pivot2 = val->max - size / 3;
 }
-

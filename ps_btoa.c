@@ -6,63 +6,59 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:46:00 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/07 07:22:25 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/11 23:46:20 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	under3(t_push_swap *ps, unsigned int size)
+static int	under3(t_push_swap *ps)
 {
 	t_ps_value		val;
-	t_deque_node	*node;
 
 	if (ps == 0)
 		ps_error();
-	if (size == 1)
-		return (ps->command(ps, "pa"));
-	ps_pivot(&ps->b, size, &val);
+	ps_pivot(&ps->b, 3, &val);
 	if (ps->b.node[0]->rank == val.max)
 	{
 		ps->command(ps, "pa");
-		return (under3(ps, size - 1));
-	}
-	if (size == 2)
-		return (ps->command(ps, "sb") && under3(ps, 2));
-	node = ps->b.node[0];
-	if (node->next->rank > node->next->next->rank)
-	{
-		if (ps->b.size == 3)
-			ps->command(ps, "rb");
-		else
+		if (ps->b.node[0]->rank < ps->b.node[0]->next->rank)
 			ps->command(ps, "sb");
-		return (under3(ps, 3));
+		ps->command(ps, "pa");
 	}
-	if (ps->b.size == 3)
+	else if (ps->b.node[0]->next->rank == val.max)
+		return (ps->command(ps, "sb") && under3(ps));
+	else
 	{
-		ps->command(ps, "rrb");
-		return (under3(ps, 3));
+		ps->command(ps, "rb") && ps->command(ps, "sb") && ps->command(ps, "pa");
+		if (ps->b.node[0]->rank > ps->b.node[0]->next->rank)
+			ps->command(ps, "rrb") && ps->command(ps, "pa");
+		else
+			ps->command(ps, "pa") && ps->command(ps, "rrb");
 	}
-	ps->command(ps, "rb");
-	ps->command(ps, "rb");
 	ps->command(ps, "pa");
-	ps->command(ps, "rrb");
-	ps->command(ps, "rrb");
-	return (under3(ps, 2));
+	return (1);
 }
 
 static int	check(t_push_swap *ps, unsigned int size, t_ps_value *val)
 {
-	unsigned int	sorted;
-
 	if (ps == 0 || val == 0)
 		ps_error();
-	if (size == 0 || ps->b.node[0] == 0)
-		return (1);
 	if (size < 4)
-		return (under3(ps, size));
-	sorted = ps->b.sorted(&ps->b, 0, 0);
-	if (sorted >= size)
+	{
+		if (size == 1)
+			return (ps->command(ps, "pa"));
+		else if (size == 2)
+		{
+			if (ps->b.node[0]->rank < ps->b.node[0]->next->rank)
+				ps->command(ps, "sb");
+			ps->command(ps, "pa") && ps->command(ps, "pa");
+		}
+		else if (size == 3)
+			return (under3(ps));
+		return (1);
+	}
+	if (size <= ps->b.sorted(&ps->b, 0, 0))
 	{
 		while (size--)
 			ps->command(ps, "pa");
