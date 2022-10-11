@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/11 19:07:00 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/12 02:15:07 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static unsigned int	push(struct s_push_swap *ps, char cmd)
 	t_deque_node	*tmp;
 	t_deque			*from_to[2];
 
-	if (ps == 0)
-		ps_error();
 	if (cmd == 'a')
 	{
 		from_to[0] = &ps->b;
@@ -41,8 +39,6 @@ static unsigned int	swap(struct s_push_swap *ps, char cmd)
 	t_deque			*dq;
 	t_deque_node	*node[2];
 
-	if (ps == 0)
-		ps_error();
 	if (cmd == 's')
 		return ((swap(ps, 'a') && swap(ps, 'b')) || 1);
 	else if (cmd == 'a')
@@ -63,8 +59,6 @@ static unsigned int	rotate(struct s_push_swap *ps, char *cmd)
 	t_deque_node	*tmp;
 	int				is_reverse;
 
-	if (ps == 0)
-		ps_error();
 	if (ft_strncmp(cmd, "rr", 3) == 0)
 		return ((rotate(ps, "ra") && rotate(ps, "rb")) || 1);
 	if (ft_strncmp(cmd, "rrr", 4) == 0)

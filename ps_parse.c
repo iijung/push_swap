@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:22:55 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/02 04:23:46 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/12 02:17:15 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ static void	ps_rank(t_deque *dq, int num)
 	t_deque_node	*self;
 	t_deque_node	*curr;
 
-	if (dq == 0)
-		ps_error();
 	rank = 0;
 	self = 0;
 	curr = dq->node[0];
