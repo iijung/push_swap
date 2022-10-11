@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 22:23:34 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/07 07:16:11 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/11 18:56:29 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ struct s_deque
 	t_deque_node	*node[2];
 	t_deque_node	*(*deque)(struct s_deque *, int);
 	void			(*enque)(struct s_deque *, int, t_deque_node *);
-	unsigned int	(*swap)(struct s_deque *);
 	unsigned int	(*sorted)(struct s_deque *, int, int);
 };
 

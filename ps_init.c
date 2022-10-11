@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/05 14:52:48 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/11 19:07:00 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,28 @@ static unsigned int	push(struct s_push_swap *ps, char cmd)
 		return (0);
 	tmp = from_to[0]->deque(from_to[0], 0);
 	from_to[1]->enque(from_to[1], 0, tmp);
+	return (1);
+}
+
+static unsigned int	swap(struct s_push_swap *ps, char cmd)
+{
+	t_deque			*dq;
+	t_deque_node	*node[2];
+
+	if (ps == 0)
+		ps_error();
+	if (cmd == 's')
+		return ((swap(ps, 'a') && swap(ps, 'b')) || 1);
+	else if (cmd == 'a')
+		dq = &ps->a;
+	else if (cmd == 'b')
+		dq = &ps->b;
+	else
+		return (0);
+	node[0] = dq->deque(dq, 0);
+	node[1] = dq->deque(dq, 0);
+	dq->enque(dq, 0, node[0]);
+	dq->enque(dq, 0, node[1]);
 	return (1);
 }
 
@@ -63,27 +85,10 @@ static unsigned int	rotate(struct s_push_swap *ps, char *cmd)
 	return (1);
 }
 
-static void	add_command(struct s_push_swap *ps, char *cmd)
+static unsigned int	command(struct s_push_swap *ps, char *cmd)
 {
 	t_list			*new;
 	char			*command;
-
-	command = ft_strdup(cmd);
-	if (command == 0)
-		ps_error();
-	new = ft_lstnew(command);
-	if (new == 0)
-		ps_error();
-	ft_lstadd_back(&ps->command_list, new);
-	if (ps->show)
-	{
-		ft_printf("%s\t", cmd);
-		ps->show(ps);
-	}
-}
-
-static unsigned int	command(struct s_push_swap *ps, char *cmd)
-{
 	unsigned int	ret;
 
 	ret = 0;
@@ -91,20 +96,27 @@ static unsigned int	command(struct s_push_swap *ps, char *cmd)
 		ps_error();
 	else if (ft_strncmp(cmd, "pa", 3) == 0 || ft_strncmp(cmd, "pb", 3) == 0)
 		ret = push(ps, cmd[1]);
-	else if (ft_strncmp(cmd, "ss", 3) == 0)
-		ret = ((ps->a.swap(&ps->a) && ps->b.swap(&ps->b)) || 1);
-	else if (ft_strncmp(cmd, "sa", 3) == 0)
-		ret = ps->a.swap(&ps->a);
-	else if (ft_strncmp(cmd, "sb", 3) == 0)
-		ret = ps->b.swap(&ps->b);
+	else if (ft_strncmp(cmd, "ss", 3) == 0
+		|| (ft_strncmp(cmd, "sa", 3) == 0) || (ft_strncmp(cmd, "sb", 3) == 0))
+		ret = swap(ps, cmd[1]);
 	else if (ft_strncmp(cmd, "rr", 3) == 0 || ft_strncmp(cmd, "rrr", 4) == 0
 		|| ft_strncmp(cmd, "ra", 3) == 0 || ft_strncmp(cmd, "rra", 4) == 0
 		|| ft_strncmp(cmd, "rb", 3) == 0 || ft_strncmp(cmd, "rrb", 4) == 0)
 		ret = rotate(ps, cmd);
 	else
 		ps_error();
-	if (ret)
-		add_command(ps, cmd);
+	if (ret == 0)
+		return (ret);
+	command = ft_strdup(cmd);
+	new = ft_lstnew(command);
+	if (command == 0 || new == 0)
+		ps_error();
+	ft_lstadd_back(&ps->command_list, new);
+	if (ps->show)
+	{
+		ft_printf("%s\t", cmd);
+		ps->show(ps);
+	}
 	return (ret);
 }
 
