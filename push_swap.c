@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:05:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/07 07:15:01 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/13 03:48:52 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	ps_result(t_list *curr)
 		}
 		cmd1 = curr->content;
 		cmd2 = curr->next->content;
+		curr = curr->next;
 		if ((!ft_strncmp(cmd1, "sa", 3) && !ft_strncmp(cmd2, "sb", 3))
 			|| (!ft_strncmp(cmd1, "sb", 3) && !ft_strncmp(cmd2, "sa", 3)))
 			ft_printf("ss\n");
@@ -42,7 +43,10 @@ void	ps_result(t_list *curr)
 			|| (!ft_strncmp(cmd1, "rrb", 4) && !ft_strncmp(cmd2, "rra", 4)))
 			ft_printf("rrr\n");
 		else
-			ft_printf("%s\n", curr->content);
+		{
+			ft_printf("%s\n", cmd1);
+			continue ;
+		}
 		curr = curr->next;
 	}
 }
