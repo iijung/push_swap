@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 22:23:34 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/11 18:56:29 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/13 01:10:46 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ struct s_ps_value
 {
 	unsigned int	idx;
 	unsigned int	min;
+	unsigned int	mid;
 	unsigned int	max;
 	unsigned int	ra;
 	unsigned int	rb;

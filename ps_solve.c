@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 06:07:24 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/12 16:16:06 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/13 03:01:30 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ void	ps_restore(t_push_swap *ps, unsigned int ra, unsigned int rb)
 {
 	if (ps == 0)
 		ps_error();
+	if (ps->a.size <= ra)
+		ra = 0;
+	if (ps->b.size <= rb)
+		rb = 0;
 	while (ra && rb)
 	{
 		ps->command(ps, "rrr");
@@ -84,6 +88,7 @@ void	ps_pivot(t_deque *dq, unsigned int size, t_ps_value *val)
 	}
 	divide(arr, 0, size - 1);
 	val->min = arr[0];
+	val->mid = arr[(size - 1) / 2];
 	val->max = arr[size - 1];
 	val->pivot1 = arr[size / 3];
 	val->pivot2 = arr[size - size / 3];
