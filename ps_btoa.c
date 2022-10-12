@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:46:00 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/12 02:08:08 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/12 14:45:03 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	under3(t_push_swap *ps)
 {
-	t_ps_value		val;
+	t_ps_value	val;
 
 	ps_pivot(&ps->b, 3, &val);
 	if (ps->b.node[0]->next->rank == val.max)
