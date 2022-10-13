@@ -6,14 +6,14 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2022/10/12 19:01:11 by minjungk         ###   ########.fr        #
+#    Updated: 2022/10/13 12:53:31 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .DEFAULT_ON_ERROR:
 .DEFAULT_GOAL := all
 
-CC = cc
+CC = $Qcc
 AR = ar
 RM = rm -f 
 
@@ -32,19 +32,22 @@ ifdef VERBOSE
 	Q =
 endif
 
-%.o : %.c
-	$Q$(COMPILE.c) $(OUTPUT_OPTION) $<
-
-% : %.o
-	$Q$(LINK.o) $^ $(LDLIBS) $(OUTPUT_OPTION)
-
 # **************************************************************************** #
-# main
+# dependency
 # **************************************************************************** #
 
-NAME = push_swap
+LIBFT = libft/libft.a
 
-src_m = \
+$(LIBFT):
+	$Q$(MAKE) -C $(@D)
+
+# **************************************************************************** #
+# push_swap
+# **************************************************************************** #
+
+PUSHSWAP = push_swap
+
+PUSHSWAP_SRCS = \
 		deque.c \
 		push_swap.c \
 		ps_init.c \
@@ -54,37 +57,46 @@ src_m = \
 		ps_solve.c \
 		ps_debug.c \
 
-src_b = \
-		push_swap.c
+PUSHSWAP_OBJS = $(PUSHSWAP_SRCS:.c=.o)
+PUSHSWAP_DEPS = $(PUSHSWAP_SRCS:.c=.d)
+-include $(PUSHSWAP_DEPS)
 
-SRCS = $(if $(filter bonus, $(MAKECMDGOALS)), $(src_b), $(src_m))
-OBJS = $(SRCS:.c=.o)
-DEPS = $(SRCS:.c=.d)
--include $(DEPS)
+$(PUSHSWAP): $(PUSHSWAP_OBJS)
+$(PUSHSWAP_OBJS): $(LIBFT)
 
-LIBS = libft/libft.a
-DIRS = libft 
+# **************************************************************************** #
+# checker
+# **************************************************************************** #
+
+CHECKER = checker
+
+CHECKER_SRCS = \
+
+CHECKER_OBJS = $(CHECKER_SRCS:.c=.o)
+CHECKER_DEPS = $(CHECKER_SRCS:.c=.d)
+-include $(CHECKER_DEPS)
+
+# **************************************************************************** #
+# main
+# **************************************************************************** #
+
+NAME = $(PUSHSWAP)
 
 all bonus:
-	$Q$(MAKE) -C $(DIRS)
-	$Q$(MAKE) $(NAME)
-
-$(NAME): $(OBJS)
-$(OBJS): $(LIBS)
-$(LIBS):
-	$Q$(MAKE) -C $(@D) $(@F)
+	$(MAKE) -C $(dir $(LIBFT))
+	$(MAKE) $(NAME)
 
 clean:
-	$Q$(MAKE) -C $(dir $(LIBS)) clean
+	$Q$(MAKE) -C $(dir $(LIBFT)) clean
 	$Q$(RM) $(wildcard *.o) $(wildcard *.d)
 
 fclean: clean
-	$Q$(RM) $(LIBS) $(NAME)
+	$Q$(RM) $(LIBFT) $(NAME)
 
 re: fclean
 	$Q$(MAKE)
 
-.PHONY: all clean fclean re bonus $(DIRS)
+.PHONY: all clean fclean re bonus $(dir $(LIBFT))
 
 seq = $(shell seq 100 | sort -R)
 test: $(NAME)
