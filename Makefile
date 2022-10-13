@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2022/10/13 14:57:14 by minjungk         ###   ########.fr        #
+#    Updated: 2022/10/13 18:12:18 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,6 @@ PUSHSWAP_SRCS = \
 		ps_atob.c \
 		ps_btoa.c \
 		ps_solve.c \
-		ps_debug.c \
 
 PUSHSWAP_OBJS = $(PUSHSWAP_SRCS:.c=.o)
 PUSHSWAP_DEPS = $(PUSHSWAP_SRCS:.c=.d)
@@ -74,9 +73,7 @@ CHECKER_SRCS = \
 		deque.c \
 		ps_init.c \
 		ps_parse.c \
-		ps_debug.c \
 		checker.c \
-		ps_debug.c \
 
 CHECKER_OBJS = $(CHECKER_SRCS:.c=.o)
 CHECKER_DEPS = $(CHECKER_SRCS:.c=.d)

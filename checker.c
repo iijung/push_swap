@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:42:23 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/13 15:06:32 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:11:04 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		exit(-1);
-	ps_init(&ps, show_cli);
+	ps_init(&ps);
 	ps_parse(&ps, argc - 1, argv + 1);
 	run(&ps);
 	exit(0);
