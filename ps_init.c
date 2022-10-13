@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/13 15:09:39 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/13 18:09:35 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static unsigned int	push(struct s_push_swap *ps, char cmd)
 	t_deque_node	*tmp;
 	t_deque			*from_to[2];
 
+	if (ps == 0)
+		ps_error();
 	if (cmd == 'a')
 	{
 		from_to[0] = &ps->b;
@@ -39,6 +41,8 @@ static unsigned int	swap(struct s_push_swap *ps, char cmd)
 	t_deque			*dq;
 	t_deque_node	*node[2];
 
+	if (ps == 0)
+		ps_error();
 	if (cmd == 's')
 		return ((swap(ps, 'a') && swap(ps, 'b')) || 1);
 	else if (cmd == 'a')
@@ -59,6 +63,8 @@ static unsigned int	rotate(struct s_push_swap *ps, char *cmd)
 	t_deque_node	*tmp;
 	int				is_reverse;
 
+	if (ps == 0)
+		ps_error();
 	if (ft_strncmp(cmd, "rr", 3) == 0)
 		return ((rotate(ps, "ra") && rotate(ps, "rb")) || 1);
 	if (ft_strncmp(cmd, "rrr", 4) == 0)
@@ -86,16 +92,14 @@ static unsigned int	cmd(struct s_push_swap *ps, char *cmd)
 	unsigned int	ret;
 
 	ret = 0;
-	if (ps == 0 || cmd == 0)
-		ps_error();
-	else if (ft_strncmp(cmd, "pa", 3) == 0 || ft_strncmp(cmd, "pb", 3) == 0)
+	if (cmd && (!ft_strncmp(cmd, "pa", 3) || !ft_strncmp(cmd, "pb", 3)))
 		ret = push(ps, cmd[1]);
-	else if (ft_strncmp(cmd, "ss", 3) == 0
-		|| (ft_strncmp(cmd, "sa", 3) == 0) || (ft_strncmp(cmd, "sb", 3) == 0))
+	else if (cmd && (!ft_strncmp(cmd, "ss", 3)
+			|| (!ft_strncmp(cmd, "sa", 3)) || (!ft_strncmp(cmd, "sb", 3))))
 		ret = swap(ps, cmd[1]);
-	else if (ft_strncmp(cmd, "rr", 3) == 0 || ft_strncmp(cmd, "rrr", 4) == 0
-		|| ft_strncmp(cmd, "ra", 3) == 0 || ft_strncmp(cmd, "rra", 4) == 0
-		|| ft_strncmp(cmd, "rb", 3) == 0 || ft_strncmp(cmd, "rrb", 4) == 0)
+	else if (cmd && (!ft_strncmp(cmd, "rr", 3) || !ft_strncmp(cmd, "rrr", 4)
+			|| !ft_strncmp(cmd, "ra", 3) || !ft_strncmp(cmd, "rra", 4)
+			|| !ft_strncmp(cmd, "rb", 3) || !ft_strncmp(cmd, "rrb", 4)))
 		ret = rotate(ps, cmd);
 	else
 		ps_error();
