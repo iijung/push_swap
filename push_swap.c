@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:05:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/13 15:09:59 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:02:15 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,37 +18,44 @@ void	ps_error(void)
 	exit(-1);
 }
 
+static int	dup_check(char *cmd1, char *cmd2)
+{
+	if (cmd1 == 0 || cmd2 == 0)
+		return (0);
+	if ((!ft_strncmp(cmd1, "sa", 3) && !ft_strncmp(cmd2, "sb", 3))
+		|| (!ft_strncmp(cmd1, "sb", 3) && !ft_strncmp(cmd2, "sa", 3)))
+		return (1);
+	else if ((!ft_strncmp(cmd1, "ra", 3) && !ft_strncmp(cmd2, "rb", 3))
+		|| (!ft_strncmp(cmd1, "rb", 3) && !ft_strncmp(cmd2, "ra", 3)))
+		return (2);
+	else if ((!ft_strncmp(cmd1, "rra", 4) && !ft_strncmp(cmd2, "rrb", 4))
+		|| (!ft_strncmp(cmd1, "rrb", 4) && !ft_strncmp(cmd2, "rra", 4)))
+		return (3);
+	return (0);
+}
+
 void	ps_result(t_list *curr)
 {
-	char	*cmd1;
-	char	*cmd2;
+	int	flag;
 
 	while (curr)
 	{
 		if (curr->next == 0)
-		{
-			ft_printf("%s\n", curr->content);
 			break ;
-		}
-		cmd1 = curr->content;
-		cmd2 = curr->next->content;
-		curr = curr->next;
-		if ((!ft_strncmp(cmd1, "sa", 3) && !ft_strncmp(cmd2, "sb", 3))
-			|| (!ft_strncmp(cmd1, "sb", 3) && !ft_strncmp(cmd2, "sa", 3)))
+		flag = dup_check(curr->content, curr->next->content);
+		if (flag == 1)
 			ft_printf("ss\n");
-		else if ((!ft_strncmp(cmd1, "ra", 3) && !ft_strncmp(cmd2, "rb", 3))
-			|| (!ft_strncmp(cmd1, "rb", 3) && !ft_strncmp(cmd2, "ra", 3)))
+		else if (flag == 2)
 			ft_printf("rr\n");
-		else if ((!ft_strncmp(cmd1, "rra", 4) && !ft_strncmp(cmd2, "rrb", 4))
-			|| (!ft_strncmp(cmd1, "rrb", 4) && !ft_strncmp(cmd2, "rra", 4)))
+		else if (flag == 3)
 			ft_printf("rrr\n");
 		else
-		{
-			ft_printf("%s\n", cmd1);
-			continue ;
-		}
+			ft_printf("%s\n", curr->content);
+		if (flag)
+			curr = curr->next;
 		curr = curr->next;
 	}
+	ft_printf("%s\n", curr->content);
 }
 
 int	main(int argc, char **argv)
