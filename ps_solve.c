@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 06:07:24 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/13 03:01:30 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:26:29 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,18 @@ void	ps_restore(t_push_swap *ps, unsigned int ra, unsigned int rb)
 		rb = 0;
 	while (ra && rb)
 	{
-		ps->command(ps, "rrr");
+		ps->cmd(ps, "rrr");
 		--ra;
 		--rb;
 	}
 	while (ra--)
-		ps->command(ps, "rra");
+		ps->cmd(ps, "rra");
 	while (rb--)
-		ps->command(ps, "rrb");
+		ps->cmd(ps, "rrb");
 }
 
-static void	merge(unsigned int *arr, unsigned int p, unsigned int q, unsigned int r)
+static void	merge(unsigned int *arr, \
+	unsigned int p, unsigned int q, unsigned int r)
 {
 	unsigned int	idx[3];
 	unsigned int	*tmp;

@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:05:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/13 03:48:52 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:09:59 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		exit(-1);
-	ps_init(&ps, show_cli);
+	ps_init(&ps, 0);
 	ps_parse(&ps, argc - 1, argv + 1);
 	ps_atob(&ps, ps.max);
-//	ps_result(ps.command_list);
+	ps_result(ps.command_list);
 	exit(0);
 }

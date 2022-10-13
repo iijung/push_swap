@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:42:23 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/13 14:42:50 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:06:32 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	run(t_push_swap *ps)
 		end = ft_strchr(cmd, '\n');
 		if (end)
 			*end = 0;
-		ps->command(ps, cmd);
+		ps->cmd(ps, cmd);
 		free(cmd);
 		cmd = get_next_line(0);
 	}

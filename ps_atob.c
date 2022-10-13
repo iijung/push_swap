@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:46:00 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/13 05:28:05 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:06:43 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,25 @@ static int	under3(t_push_swap *ps, unsigned int size)
 	if (ps->a.sorted(&ps->a, 0, 1) >= size)
 		return (1);
 	if (size == 2)
-		return (ps->command(ps, "sa"));
+		return (ps->cmd(ps, "sa"));
 	node = ps->a.node[0];
 	if (node->rank < node->next->rank)
 	{
 		if (ps->a.size == 3)
-			ps->command(ps, "rra");
+			ps->cmd(ps, "rra");
 		else
 		{
-			ps->command(ps, "pb");
+			ps->cmd(ps, "pb");
 			under3(ps, 2);
-			ps->command(ps, "pa");
+			ps->cmd(ps, "pa");
 		}
 	}
 	else if (ps->a.size == 3 && node->rank > node->next->next->rank)
-		ps->command(ps, "ra");
+		ps->cmd(ps, "ra");
 	else if (ps->b.size > 1 && ps->b.node[0]->rank < ps->b.node[0]->next->rank)
-		ps->command(ps, "ss");
+		ps->cmd(ps, "ss");
 	else
-		ps->command(ps, "sa");
+		ps->cmd(ps, "sa");
 	return (under3(ps, 3));
 }
 
@@ -47,16 +47,16 @@ static int	under4(t_push_swap *ps)
 
 	ps_pivot(&ps->a, ps->a.size, &val);
 	if (ps->a.node[0]->rank == val.max)
-		ps->command(ps, "ra");
+		ps->cmd(ps, "ra");
 	if (ps->a.node[1]->prev->rank == val.max)
-		ps->command(ps, "rra");
+		ps->cmd(ps, "rra");
 	if (ps->a.node[1]->rank == val.max)
 		return (under3(ps, 3));
 	if (ps->a.node[0]->rank == val.min)
-		return (ps->command(ps, "pb") && under3(ps, 3) && ps->command(ps, "pa"));
+		return (ps->cmd(ps, "pb") && under3(ps, 3) && ps->cmd(ps, "pa"));
 	if (ps->a.node[1]->prev->rank == val.min)
-		return (ps->command(ps, "rra") && under3(ps, 2) && ps->command(ps, "rra"));
-	return (under3(ps, 3) && ps->command(ps, "rra"));
+		return (ps->cmd(ps, "rra") && under3(ps, 2) && ps->cmd(ps, "rra"));
+	return (under3(ps, 3) && ps->cmd(ps, "rra"));
 }
 
 static int	under5(t_push_swap *ps)
@@ -68,22 +68,22 @@ static int	under5(t_push_swap *ps)
 	while (val.push < 2)
 	{
 		if (ps->a.node[0]->rank < val.mid)
-			val.push += ps->command(ps, "pb");
+			val.push += ps->cmd(ps, "pb");
 		else if (ps->a.node[0]->next->rank < ps->a.node[1]->rank)
-			ps->command(ps, "ra");
+			ps->cmd(ps, "ra");
 		else
-			ps->command(ps, "rra");
+			ps->cmd(ps, "rra");
 	}
 	swap[0] = ps->a.node[0]->rank > ps->a.node[0]->next->rank;
 	swap[1] = ps->b.node[0]->rank < ps->b.node[0]->next->rank;
 	if (swap[0] && swap[1])
-		ps->command(ps, "ss");
+		ps->cmd(ps, "ss");
 	else if (swap[0])
-		ps->command(ps, "sa");
+		ps->cmd(ps, "sa");
 	else if (swap[1])
-		ps->command(ps, "sb");
+		ps->cmd(ps, "sb");
 	under3(ps, 3);
-	ps->command(ps, "pa") && ps->command(ps, "pa");
+	ps->cmd(ps, "pa") && ps->cmd(ps, "pa");
 	return (1);
 }
 
@@ -112,12 +112,12 @@ void	ps_atob(t_push_swap *ps, unsigned int size)
 	while (val.ra + val.push < val.size)
 	{
 		if (ps->a.node[0]->rank >= val.pivot2)
-			val.ra += ps->command(ps, "ra");
+			val.ra += ps->cmd(ps, "ra");
 		else
 		{
-			val.push += ps->command(ps, "pb");
+			val.push += ps->cmd(ps, "pb");
 			if (ps->b.node[0]->rank > val.pivot1)
-				val.rb += ps->command(ps, "rb");
+				val.rb += ps->cmd(ps, "rb");
 		}
 	}
 	ps_restore(ps, val.ra, val.rb);

@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/12 02:15:07 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/13 15:09:39 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ static unsigned int	rotate(struct s_push_swap *ps, char *cmd)
 	return (1);
 }
 
-static unsigned int	command(struct s_push_swap *ps, char *cmd)
+static unsigned int	cmd(struct s_push_swap *ps, char *cmd)
 {
 	t_list			*new;
-	char			*command;
+	char			*tmp;
 	unsigned int	ret;
 
 	ret = 0;
@@ -101,9 +101,9 @@ static unsigned int	command(struct s_push_swap *ps, char *cmd)
 		ps_error();
 	if (ret == 0)
 		return (ret);
-	command = ft_strdup(cmd);
-	new = ft_lstnew(command);
-	if (command == 0 || new == 0)
+	tmp = ft_strdup(cmd);
+	new = ft_lstnew(tmp);
+	if (tmp == 0 || new == 0)
 		ps_error();
 	ft_lstadd_back(&ps->command_list, new);
 	if (ps->show)
@@ -122,5 +122,5 @@ void	ps_init(struct s_push_swap *ps, void (*show)(struct s_push_swap *))
 	deque_init(&ps->a);
 	deque_init(&ps->b);
 	ps->show = show;
-	ps->command = command;
+	ps->cmd = cmd;
 }
