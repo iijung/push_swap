@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:05:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/13 17:02:15 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/13 17:50:40 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	ps_result(t_list *curr)
 			curr = curr->next;
 		curr = curr->next;
 	}
-	ft_printf("%s\n", curr->content);
+	if (curr)
+		ft_printf("%s\n", curr->content);
 }
 
 int	main(int argc, char **argv)
