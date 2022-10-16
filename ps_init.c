@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/13 18:11:23 by minjungk         ###   ########.fr       */
+/*   Updated: 2022/10/16 11:02:25 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ static unsigned int	swap(struct s_push_swap *ps, char cmd)
 		ps_error();
 	if (cmd == 's')
 		return ((swap(ps, 'a') && swap(ps, 'b')) || 1);
-	else if (cmd == 'a')
+	else if (cmd == 'a' && ps->a.size >= 2)
 		dq = &ps->a;
-	else if (cmd == 'b')
+	else if (cmd == 'b' && ps->b.size >= 2)
 		dq = &ps->b;
 	else
 		return (0);
