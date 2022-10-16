@@ -6,16 +6,14 @@
 #    By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/04 20:07:19 by minjungk          #+#    #+#              #
-#    Updated: 2022/10/03 14:29:02 by minjungk         ###   ########.fr        #
+#    Updated: 2022/10/16 10:51:19 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .DEFAULT_ON_ERROR:
 .DEFAULT_GOAL := all
 
-CC = cc
-AR = ar
-RM = rm -f
+CC = $Qcc
 
 ARFLAGS = rsc
 CFLAGS = -Wall -Wextra -Werror -MMD -MP
@@ -29,9 +27,6 @@ Q = @
 ifdef VERBOSE
 	Q =
 endif
-
-%.o : %.c
-	$(Q)$(COMPILE.c) $(OUTPUT_OPTION) $<
 
 # **************************************************************************** #
 # main
