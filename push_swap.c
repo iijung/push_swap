@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:05:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/13 18:12:07 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/13 07:14:25 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ps_error(void)
 {
 	ft_putstr_fd("Error\n", 2);
-	exit(-1);
+	exit(EXIT_FAILURE);
 }
 
 static int	dup_check(char *cmd1, char *cmd2)
@@ -64,10 +64,10 @@ int	main(int argc, char **argv)
 	t_push_swap	ps;
 
 	if (argc < 2)
-		exit(-1);
+		exit(EXIT_FAILURE);
 	ps_init(&ps);
 	ps_parse(&ps, argc - 1, argv + 1);
 	ps_atob(&ps, ps.max);
 	ps_result(ps.command_list);
-	exit(0);
+	exit(EXIT_SUCCESS);
 }

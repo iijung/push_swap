@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/16 11:02:25 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/13 07:11:01 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static unsigned int	push(struct s_push_swap *ps, char cmd)
 	t_deque_node	*tmp;
 	t_deque			*from_to[2];
 
-	if (ps == 0)
+	if (ps == NULL)
 		ps_error();
 	if (cmd == 'a')
 	{
@@ -41,7 +41,7 @@ static unsigned int	swap(struct s_push_swap *ps, char cmd)
 	t_deque			*dq;
 	t_deque_node	*node[2];
 
-	if (ps == 0)
+	if (ps == NULL)
 		ps_error();
 	if (cmd == 's')
 		return ((swap(ps, 'a') && swap(ps, 'b')) || 1);
@@ -115,7 +115,7 @@ static unsigned int	cmd(struct s_push_swap *ps, char *cmd)
 
 void	ps_init(struct s_push_swap *ps)
 {
-	if (ps == 0)
+	if (ps == NULL)
 		ps_error();
 	ft_memset(ps, 0, sizeof(t_push_swap));
 	deque_init(&ps->a);

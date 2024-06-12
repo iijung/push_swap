@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:42:23 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/13 18:11:04 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/13 07:13:51 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ps_error(void)
 {
 	ft_putstr_fd("Error\n", 2);
-	exit(-1);
+	exit(EXIT_FAILURE);
 }
 
 static void	run(t_push_swap *ps)
@@ -23,17 +23,17 @@ static void	run(t_push_swap *ps)
 	char	*cmd;
 	char	*end;
 
-	if (ps == 0)
+	if (ps == NULL)
 		ps_error();
-	cmd = get_next_line(0);
+	cmd = get_next_line(STDIN_FILENO);
 	while (cmd)
 	{
 		end = ft_strchr(cmd, '\n');
 		if (end)
-			*end = 0;
+			*end = '\0';
 		ps->cmd(ps, cmd);
 		free(cmd);
-		cmd = get_next_line(0);
+		cmd = get_next_line(STDIN_FILENO);
 	}
 	if (ps->b.size == 0 && ps->a.sorted(&ps->a, 0, 1) == ps->a.size)
 		ft_printf("OK\n");
@@ -46,9 +46,9 @@ int	main(int argc, char **argv)
 	t_push_swap	ps;
 
 	if (argc < 2)
-		exit(-1);
+		exit(EXIT_FAILURE);
 	ps_init(&ps);
 	ps_parse(&ps, argc - 1, argv + 1);
 	run(&ps);
-	exit(0);
+	exit(EXIT_SUCCESS);
 }
