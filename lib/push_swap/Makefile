@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 02:34:32 by minjungk          #+#    #+#              #
-#    Updated: 2024/06/17 04:40:53 by minjungk         ###   ########.fr        #
+#    Updated: 2024/06/17 04:55:12 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ CFLAGS		+= -Wall -Wextra -Werror -O2
 ARFLAGS		= rsc
 
 ifdef DEBUG
-CPPFLAGS	+= -DDEBUG=1
+CPPFLAGS	+= -DDEBUG=$(DEBUG)
 CFLAGS		+= -g -fsanitize=address,undefined
 LDFLAGS		+= -fsanitize=address,undefined
 endif

@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:23:54 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/13 07:12:10 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 04:47:24 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ static t_deque_node	*deque(struct s_deque *dq, int is_rear)
 {
 	t_deque_node	*node;
 
-	if (dq == NULL || (is_rear != 0 && is_rear != 1))
-		ps_error();
+	ps_assert(NULL != dq, __func__, __FILE__, __LINE__);
+	ps_assert(0 == is_rear || 1 == is_rear, __func__, __FILE__, __LINE__);
 	node = dq->node[is_rear];
 	if (is_rear)
 	{
@@ -69,8 +69,9 @@ static t_deque_node	*deque(struct s_deque *dq, int is_rear)
 
 static void	enque(struct s_deque *dq, int is_rear, t_deque_node *node)
 {
-	if (dq == NULL || (is_rear != 0 && is_rear != 1) || !node)
-		ps_error();
+	ps_assert(NULL != dq, __func__, __FILE__, __LINE__);
+	ps_assert(0 == is_rear || 1 == is_rear, __func__, __FILE__, __LINE__);
+	ps_assert(NULL != node, __func__, __FILE__, __LINE__);
 	if (dq->node[is_rear] == NULL)
 	{
 		dq->node[0] = node;
@@ -92,8 +93,7 @@ static void	enque(struct s_deque *dq, int is_rear, t_deque_node *node)
 
 void	deque_init(struct s_deque *dq)
 {
-	if (dq == NULL)
-		ps_error();
+	ps_assert(NULL != dq, __func__, __FILE__, __LINE__);
 	ft_bzero(dq, sizeof(t_deque));
 	dq->sorted = sorted;
 	dq->deque = deque;

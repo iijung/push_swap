@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:42:23 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 04:07:12 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 04:50:50 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ static void	run(t_push_swap *ps)
 	char	*cmd;
 	char	*end;
 
-	if (ps == NULL)
-		ps_error();
+	ps_assert(NULL != ps, __func__, __FILE__, __LINE__);
 	cmd = get_next_line(STDIN_FILENO);
 	while (cmd)
 	{

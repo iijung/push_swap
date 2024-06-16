@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:46:00 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 03:57:47 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 04:50:48 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,7 @@ void	ps_atob(t_push_swap *ps, unsigned int size)
 {
 	t_ps_value		val;
 
-	if (ps == 0)
-		ps_error();
+	ps_assert(NULL != ps, __func__, __FILE__, __LINE__);
 	if (check(ps, &val, size))
 		return ;
 	while (val.ra + val.push < val.size)

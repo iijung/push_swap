@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 06:07:24 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 03:57:22 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 04:51:44 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static void	merge(unsigned int *arr, \
 	unsigned int	*tmp;
 
 	tmp = ft_calloc(r - p + 1, sizeof(unsigned int));
-	if (tmp == 0)
-		ps_error();
+	ps_assert(NULL != tmp, __func__, __FILE__, __LINE__);
 	idx[0] = 0;
 	idx[1] = p;
 	idx[2] = q + 1;
@@ -58,8 +57,9 @@ void	ps_pivot(t_deque *dq, unsigned int size, t_ps_value *val)
 	t_deque_node	*curr;
 
 	arr = ft_calloc(size, sizeof(unsigned int));
-	if (dq == 0 || val == 0 || arr == 0)
-		ps_error();
+	ps_assert(NULL != dq, __func__, __FILE__, __LINE__);
+	ps_assert(NULL != val, __func__, __FILE__, __LINE__);
+	ps_assert(NULL != arr, __func__, __FILE__, __LINE__);
 	ft_memset(val, 0, sizeof(t_ps_value));
 	curr = dq->node[0];
 	while (val->size < size && curr)
@@ -77,8 +77,7 @@ void	ps_pivot(t_deque *dq, unsigned int size, t_ps_value *val)
 
 void	ps_restore(t_push_swap *ps, unsigned int ra, unsigned int rb)
 {
-	if (ps == 0)
-		ps_error();
+	ps_assert(NULL != ps, __func__, __FILE__, __LINE__);
 	if (ps->a.size <= ra)
 		ra = 0;
 	if (ps->b.size <= rb)

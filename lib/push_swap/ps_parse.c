@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:22:55 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 03:23:29 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 04:49:42 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ static void	ps_rank(t_deque *dq, int num)
 			curr->rank += 1;
 		curr = curr->next;
 	}
-	if (self == 0)
-		ps_error();
+	ps_assert(NULL != self, __func__, __FILE__, __LINE__);
 	self->rank = rank;
 }
 
@@ -42,17 +41,16 @@ static void	ps_set(t_push_swap *ps, char *str)
 	t_deque_node	*curr;
 
 	new = ft_calloc(1, sizeof(t_deque_node));
-	if (ps == 0 || str == 0 || new == 0)
-		ps_error();
+	ps_assert(NULL != ps, __func__, __FILE__, __LINE__);
+	ps_assert(NULL != str, __func__, __FILE__, __LINE__);
+	ps_assert(NULL != new, __func__, __FILE__, __LINE__);
 	errno = 0;
 	new->num = ft_atoi(str);
-	if (errno)
-		ps_error();
+	ps_assert(0 == errno, __func__, __FILE__, __LINE__);
 	curr = ps->a.node[0];
 	while (curr)
 	{
-		if (curr->num == new->num)
-			ps_error();
+		ps_assert(curr->num != new->num, __func__, __FILE__, __LINE__);
 		curr = curr->next;
 	}
 	ps->a.enque(&ps->a, 1, new);
@@ -65,14 +63,13 @@ void	ps_parse(t_push_swap *ps, int size, char **strs)
 	int		j;
 	char	**split;
 
-	if (ps == 0 || size == 0 || strs == 0)
-		ps_error();
+	ps_assert(NULL != ps && size > 0 && strs, __func__, __FILE__, __LINE__);
 	i = -1;
 	while (++i < size)
 	{
 		split = ft_split(strs[i], ' ');
-		if (split == 0 || split[0] == 0)
-			ps_error();
+		ps_assert(NULL != split, __func__, __FILE__, __LINE__);
+		ps_assert(NULL != split[0], __func__, __FILE__, __LINE__);
 		j = -1;
 		while (split[++j])
 		{

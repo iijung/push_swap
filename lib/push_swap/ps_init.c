@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/13 07:11:01 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 04:48:39 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ static unsigned int	push(struct s_push_swap *ps, char cmd)
 	t_deque_node	*tmp;
 	t_deque			*from_to[2];
 
-	if (ps == NULL)
-		ps_error();
+	ps_assert(NULL != ps, __func__, __FILE__, __LINE__);
 	if (cmd == 'a')
 	{
 		from_to[0] = &ps->b;
@@ -41,8 +40,7 @@ static unsigned int	swap(struct s_push_swap *ps, char cmd)
 	t_deque			*dq;
 	t_deque_node	*node[2];
 
-	if (ps == NULL)
-		ps_error();
+	ps_assert(NULL != ps, __func__, __FILE__, __LINE__);
 	if (cmd == 's')
 		return ((swap(ps, 'a') && swap(ps, 'b')) || 1);
 	else if (cmd == 'a' && ps->a.size >= 2)
@@ -63,8 +61,7 @@ static unsigned int	rotate(struct s_push_swap *ps, char *cmd)
 	t_deque_node	*tmp;
 	int				is_reverse;
 
-	if (ps == 0)
-		ps_error();
+	ps_assert(NULL != ps, __func__, __FILE__, __LINE__);
 	if (ft_strncmp(cmd, "rr", 3) == 0)
 		return ((rotate(ps, "ra") && rotate(ps, "rb")) || 1);
 	if (ft_strncmp(cmd, "rrr", 4) == 0)
@@ -102,21 +99,19 @@ static unsigned int	cmd(struct s_push_swap *ps, char *cmd)
 			|| !ft_strncmp(cmd, "rb", 3) || !ft_strncmp(cmd, "rrb", 4)))
 		ret = rotate(ps, cmd);
 	else
-		ps_error();
+		ps_assert(1, __func__, __FILE__, __LINE__);
 	if (ret == 0)
 		return (ret);
 	tmp = ft_strdup(cmd);
 	new = ft_lstnew(tmp);
-	if (tmp == 0 || new == 0)
-		ps_error();
+	ps_assert(NULL != tmp && NULL != new, __func__, __FILE__, __LINE__);
 	ft_lstadd_back(&ps->command_list, new);
 	return (ret);
 }
 
 void	ps_init(struct s_push_swap *ps)
 {
-	if (ps == NULL)
-		ps_error();
+	ps_assert(NULL != ps, __func__, __FILE__, __LINE__);
 	ft_memset(ps, 0, sizeof(t_push_swap));
 	deque_init(&ps->a);
 	deque_init(&ps->b);
