@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 06:07:24 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 05:17:19 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 05:39:43 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ void	ps_restore(t_push_swap *ps, unsigned int ra, unsigned int rb)
 		rb = 0;
 	while (ra && rb)
 	{
-		ps->cmd(ps, "rrr");
+		ps->cmd(ps, RRR);
 		--ra;
 		--rb;
 	}
 	while (ra--)
-		ps->cmd(ps, "rra");
+		ps->cmd(ps, RRA);
 	while (rb--)
-		ps->cmd(ps, "rrb");
+		ps->cmd(ps, RRB);
 }

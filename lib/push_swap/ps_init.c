@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 05:04:22 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 05:37:46 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,11 @@ static unsigned int	rotate(struct s_push_swap *ps, char *cmd)
 	int				is_reverse;
 
 	ps_assert(NULL != ps, __func__, __FILE__, __LINE__);
-	if (ft_strncmp(cmd, "rr", 3) == 0)
-		return ((rotate(ps, "ra") && rotate(ps, "rb")) || 1);
-	if (ft_strncmp(cmd, "rrr", 4) == 0)
-		return ((rotate(ps, "rra") && rotate(ps, "rrb")) || 1);
-	is_reverse = ft_strncmp(cmd, "rr", 2) == 0;
+	if (ft_strncmp(cmd, RR, 3) == 0)
+		return ((rotate(ps, RA) && rotate(ps, RB)) || 1);
+	if (ft_strncmp(cmd, RRR, 4) == 0)
+		return ((rotate(ps, RRA) && rotate(ps, RRB)) || 1);
+	is_reverse = ft_strncmp(cmd, RR, 2) == 0;
 	if (cmd[is_reverse + 1] == 'a' && ps->a.node[0])
 	{
 		tmp = ps->a.deque(&ps->a, is_reverse);
@@ -89,14 +89,14 @@ static unsigned int	cmd(struct s_push_swap *ps, char *cmd)
 	unsigned int	ret;
 
 	ret = 0;
-	if (cmd && (!ft_strncmp(cmd, "pa", 3) || !ft_strncmp(cmd, "pb", 3)))
+	if (cmd && (!ft_strncmp(cmd, PA, 3) || !ft_strncmp(cmd, PB, 3)))
 		ret = push(ps, cmd[1]);
-	else if (cmd && (!ft_strncmp(cmd, "ss", 3)
-			|| (!ft_strncmp(cmd, "sa", 3)) || (!ft_strncmp(cmd, "sb", 3))))
+	else if (cmd && (!ft_strncmp(cmd, SS, 3)
+			|| (!ft_strncmp(cmd, SA, 3)) || (!ft_strncmp(cmd, SB, 3))))
 		ret = swap(ps, cmd[1]);
-	else if (cmd && (!ft_strncmp(cmd, "rr", 3) || !ft_strncmp(cmd, "rrr", 4)
-			|| !ft_strncmp(cmd, "ra", 3) || !ft_strncmp(cmd, "rra", 4)
-			|| !ft_strncmp(cmd, "rb", 3) || !ft_strncmp(cmd, "rrb", 4)))
+	else if (cmd && (!ft_strncmp(cmd, RR, 3) || !ft_strncmp(cmd, RRR, 4)
+			|| !ft_strncmp(cmd, RA, 3) || !ft_strncmp(cmd, RRA, 4)
+			|| !ft_strncmp(cmd, RB, 3) || !ft_strncmp(cmd, RRB, 4)))
 		ret = rotate(ps, cmd);
 	else
 		ps_assert(1, __func__, __FILE__, __LINE__);

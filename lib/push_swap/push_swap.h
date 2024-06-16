@@ -6,13 +6,28 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 22:23:34 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 05:15:49 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 05:44:38 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 # include "libexternal.h"
+
+# define PA		"pa"	// push a
+# define PB		"pb"	// push b
+
+# define SS		"ss"	// sa + sb
+# define SA		"sa"	// swap a[0] a[1]
+# define SB		"sb"	// swap b[0] b[1]
+
+# define RR		"rr"	// ra + rb
+# define RA		"ra"	// rotate a (first -> last)
+# define RB		"rb"	// rotate b (first -> last)
+
+# define RRR	"rrr"	// rra + rrb
+# define RRA	"rra"	// reverse rotate a (last -> first)
+# define RRB	"rrb"	// reverse rotate b (last -> first)
 
 typedef struct s_deque_node	t_deque_node;
 typedef struct s_deque		t_deque;
