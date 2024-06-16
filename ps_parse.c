@@ -6,33 +6,11 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:22:55 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/12 02:17:15 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 03:23:29 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-static int	ps_atoi(const char *str)
-{
-	int	rtn;
-	int	minus;
-
-	minus = 0;
-	if (*str == '+' || *str == '-')
-		minus = *str++ == '-';
-	if (!('0' <= *str && *str <= '9'))
-		ps_error();
-	rtn = 0;
-	while ('0' <= *str && *str <= '9')
-	{
-		if (rtn > 214748364 || (rtn == 214748364 && (*str > '7' + minus)))
-			ps_error();
-		rtn = rtn * 10 + *str++ - '0';
-	}
-	if (minus)
-		rtn *= -1;
-	return (rtn);
-}
 
 static void	ps_rank(t_deque *dq, int num)
 {
@@ -66,7 +44,10 @@ static void	ps_set(t_push_swap *ps, char *str)
 	new = ft_calloc(1, sizeof(t_deque_node));
 	if (ps == 0 || str == 0 || new == 0)
 		ps_error();
-	new->num = ps_atoi(str);
+	errno = 0;
+	new->num = ft_atoi(str);
+	if (errno)
+		ps_error();
 	curr = ps->a.node[0];
 	while (curr)
 	{
