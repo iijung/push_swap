@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 06:07:24 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 07:03:48 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 07:31:01 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ps_pivot(t_deque *dq, unsigned int size, t_ps_value *val)
 	val->mid = arr[(size - 1) / 2];
 	val->max = arr[size - 1];
 	val->pivot1 = arr[size / 3];
-	val->pivot2 = arr[size - size / 3];
+	val->pivot2 = arr[size - 1 - size / 3];
 	free(arr);
 }
 
