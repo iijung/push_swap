@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:42:23 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 05:06:20 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 07:10:34 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(int argc, char **argv)
 	if (argc < 2)
 		exit(EXIT_FAILURE);
 	ps_init(&ps, argc - 1, argv + 1);
+	ps_debug(&ps, "");
 	run(&ps);
 	exit(EXIT_SUCCESS);
 }

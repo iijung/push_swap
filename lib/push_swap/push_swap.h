@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 22:23:34 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 06:01:53 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 07:09:40 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ struct s_deque
 	t_deque_node	*(*deque)(struct s_deque *, int);
 	void			(*enque)(struct s_deque *, int, t_deque_node *);
 	unsigned int	(*sorted)(struct s_deque *, int, int);
+	void			(*show)(struct s_deque *);
 };
 
 struct s_push_swap
@@ -73,6 +74,7 @@ struct s_push_swap
 
 void	deque_init(struct s_deque *dq);
 void	ps_assert(int is_success, const char *func, const char *file, int line);
+void	ps_debug(struct s_push_swap *ps, const char *cmd);
 void	ps_init(struct s_push_swap *ps, int size, char **strs);
 
 #endif

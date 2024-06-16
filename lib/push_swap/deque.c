@@ -6,11 +6,26 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:23:54 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 06:37:16 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 06:53:39 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static void	show(struct s_deque *dq)
+{
+	struct s_deque_node	*curr;
+
+	if (NULL == dq)
+		return ;
+	curr = dq->node[IS_FRONT];
+	while (curr)
+	{
+		ft_putnbr_fd(curr->num, STDOUT_FILENO);
+		ft_putchar_fd(' ', STDOUT_FILENO);
+		curr = curr->next;
+	}
+}
 
 static unsigned int	sorted(struct s_deque *dq, int is_rear, int asc)
 {
@@ -95,6 +110,7 @@ void	deque_init(struct s_deque *dq)
 {
 	ps_assert(NULL != dq, __func__, __FILE__, __LINE__);
 	ft_bzero(dq, sizeof(t_deque));
+	dq->show = show;
 	dq->sorted = sorted;
 	dq->deque = deque;
 	dq->enque = enque;

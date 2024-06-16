@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/01 02:34:32 by minjungk          #+#    #+#              #
-#    Updated: 2024/06/17 04:55:12 by minjungk         ###   ########.fr        #
+#    Updated: 2024/06/17 07:06:25 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ $(LIBS):
 
 SRCS = \
 	ps_assert.c \
+	ps_debug.c \
 	deque.c \
 	ps_init.c \
 	ps_parse.c \

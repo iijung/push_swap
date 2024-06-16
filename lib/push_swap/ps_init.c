@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 06:41:09 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 07:10:13 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ static unsigned int	cmd(struct s_push_swap *ps, char *cmd)
 		ps_assert(1, __func__, __FILE__, __LINE__);
 	if (ret == 0)
 		return (ret);
+	ps_debug(ps, cmd);
 	instruction = ft_lstnew(NULL);
 	ps_assert(NULL != instruction, __func__, __FILE__, __LINE__);
 	instruction->content = ft_strdup(cmd);
