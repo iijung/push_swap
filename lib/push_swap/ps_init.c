@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 06:07:11 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 06:34:29 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static unsigned int	push(struct s_push_swap *ps, char cmd)
 	t_deque_node	*tmp;
 	t_deque			*from_to[2];
 
-	ps_assert(NULL != ps, __func__, __FILE__, __LINE__);
 	if (cmd == 'a')
 	{
 		from_to[0] = &ps->b;
@@ -40,7 +39,6 @@ static unsigned int	swap(struct s_push_swap *ps, char cmd)
 	t_deque			*dq;
 	t_deque_node	*node[2];
 
-	ps_assert(NULL != ps, __func__, __FILE__, __LINE__);
 	if (cmd == 's')
 		return ((swap(ps, 'a') && swap(ps, 'b')) || 1);
 	else if (cmd == 'a' && ps->a.size >= 2)
@@ -61,7 +59,6 @@ static unsigned int	rotate(struct s_push_swap *ps, char *cmd)
 	t_deque_node	*tmp;
 	int				is_reverse;
 
-	ps_assert(NULL != ps, __func__, __FILE__, __LINE__);
 	if (ft_strncmp(cmd, RR, 3) == 0)
 		return ((rotate(ps, RA) && rotate(ps, RB)) || 1);
 	if (ft_strncmp(cmd, RRR, 4) == 0)
@@ -84,10 +81,10 @@ static unsigned int	rotate(struct s_push_swap *ps, char *cmd)
 
 static unsigned int	cmd(struct s_push_swap *ps, char *cmd)
 {
-	t_list			*new;
-	char			*tmp;
+	t_list			*instruction;
 	unsigned int	ret;
 
+	ps_assert(NULL != ps, __func__, __FILE__, __LINE__);
 	ret = 0;
 	if (cmd && (!ft_strncmp(cmd, PA, 3) || !ft_strncmp(cmd, PB, 3)))
 		ret = push(ps, cmd[1]);
@@ -102,10 +99,11 @@ static unsigned int	cmd(struct s_push_swap *ps, char *cmd)
 		ps_assert(1, __func__, __FILE__, __LINE__);
 	if (ret == 0)
 		return (ret);
-	tmp = ft_strdup(cmd);
-	new = ft_lstnew(tmp);
-	ps_assert(NULL != tmp && NULL != new, __func__, __FILE__, __LINE__);
-	ft_lstadd_back(&ps->command_list, new);
+	instruction = ft_lstnew(NULL);
+	ps_assert(NULL != instruction, __func__, __FILE__, __LINE__);
+	instruction->content = ft_strdup(cmd);
+	ps_assert(NULL != instruction->content, __func__, __FILE__, __LINE__);
+	ft_lstadd_back(&ps->command_list, instruction);
 	return (ret);
 }
 
