@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 04:48:39 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 05:04:22 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,14 @@ static unsigned int	cmd(struct s_push_swap *ps, char *cmd)
 	return (ret);
 }
 
-void	ps_init(struct s_push_swap *ps)
+extern void	ps_parse(t_push_swap *ps, int size, char **strs);
+
+void	ps_init(struct s_push_swap *ps, int size, char **strs)
 {
 	ps_assert(NULL != ps, __func__, __FILE__, __LINE__);
 	ft_memset(ps, 0, sizeof(t_push_swap));
 	deque_init(&ps->a);
 	deque_init(&ps->b);
 	ps->cmd = cmd;
+	ps_parse(ps, size, strs);
 }

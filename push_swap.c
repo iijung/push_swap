@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:05:45 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 04:01:27 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 05:05:11 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		exit(EXIT_FAILURE);
-	ps_init(&ps);
-	ps_parse(&ps, argc - 1, argv + 1);
+	ps_init(&ps, argc - 1, argv + 1);
 	ps_atob(&ps, ps.max);
 	ps_result(ps.command_list);
 	exit(EXIT_SUCCESS);
