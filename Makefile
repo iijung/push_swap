@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2024/06/13 06:59:59 by minjungk         ###   ########.fr        #
+#    Updated: 2024/06/17 02:46:12 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ endif
 # dependency
 # **************************************************************************** #
 
-LIBS = libft/libft.a
+LIBS = external/libexternal.a
 
 CPPFLAGS	+= $(foreach dir, $(dir $(LIBS)), -I$(dir))
 LDFLAGS 	+= $(foreach dir, $(dir $(LIBS)), -L$(dir))
@@ -91,11 +91,12 @@ bonus:
 	$(MAKE) $(CHECKER)
 
 clean:
-	$Q$(MAKE) -C $(dir $(LIBS)) clean
+	$Q$(foreach dir, $(dir $(LIBS)), $(MAKE) -C $(dir) clean)
 	$Q$(RM) $(wildcard *.o) $(wildcard *.d)
 
 fclean: clean
-	$Q$(RM) $(LIBS) $(PUSHSWAP) $(CHECKER)
+	$Q$(foreach dir, $(dir $(LIBS)), $(MAKE) -C $(dir) fclean)
+	$Q$(RM) $(PUSHSWAP) $(CHECKER)
 
 re: fclean
 	$Q$(MAKE)
