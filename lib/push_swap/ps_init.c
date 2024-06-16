@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 06:34:29 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 06:41:09 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ static unsigned int	push(struct s_push_swap *ps, char cmd)
 		from_to[0] = &ps->a;
 		from_to[1] = &ps->b;
 	}
-	if (from_to[0]->node[0] == 0)
+	if (from_to[0]->node[IS_FRONT] == 0)
 		return (0);
-	tmp = from_to[0]->deque(from_to[0], 0);
-	from_to[1]->enque(from_to[1], 0, tmp);
+	tmp = from_to[0]->deque(from_to[0], IS_FRONT);
+	from_to[1]->enque(from_to[1], IS_FRONT, tmp);
 	return (1);
 }
 
@@ -47,10 +47,10 @@ static unsigned int	swap(struct s_push_swap *ps, char cmd)
 		dq = &ps->b;
 	else
 		return (0);
-	node[0] = dq->deque(dq, IS_FRONT);
-	node[1] = dq->deque(dq, IS_FRONT);
-	dq->enque(dq, IS_FRONT, node[0]);
-	dq->enque(dq, IS_FRONT, node[1]);
+	node[IS_FRONT] = dq->deque(dq, IS_FRONT);
+	node[IS_REAR] = dq->deque(dq, IS_FRONT);
+	dq->enque(dq, IS_FRONT, node[IS_FRONT]);
+	dq->enque(dq, IS_FRONT, node[IS_REAR]);
 	return (1);
 }
 
@@ -64,12 +64,12 @@ static unsigned int	rotate(struct s_push_swap *ps, char *cmd)
 	if (ft_strncmp(cmd, RRR, 4) == 0)
 		return ((rotate(ps, RRA) && rotate(ps, RRB)) || 1);
 	is_reverse = ft_strncmp(cmd, RR, 2) == 0;
-	if (cmd[is_reverse + 1] == 'a' && ps->a.node[0])
+	if (cmd[is_reverse + 1] == 'a' && ps->a.node[IS_FRONT])
 	{
 		tmp = ps->a.deque(&ps->a, is_reverse);
 		ps->a.enque(&ps->a, !is_reverse, tmp);
 	}
-	else if (cmd[is_reverse + 1] == 'b' && ps->b.node[0])
+	else if (cmd[is_reverse + 1] == 'b' && ps->b.node[IS_FRONT])
 	{
 		tmp = ps->b.deque(&ps->b, is_reverse);
 		ps->b.enque(&ps->b, !is_reverse, tmp);

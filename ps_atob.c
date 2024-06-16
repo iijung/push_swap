@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:46:00 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 06:03:38 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 06:33:39 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 static int	under3(t_push_swap *ps, unsigned int size)
 {
-	t_deque_node	*node;
+	t_deque_node *const	node = ps->a.node[IS_FRONT];
 
 	if (ps->a.sorted(&ps->a, IS_FRONT, ASC) >= size)
 		return (1);
 	if (size == 2)
 		return (ps->cmd(ps, SA));
-	node = ps->a.node[0];
 	if (node->rank < node->next->rank)
 	{
 		if (ps->a.size == 3)
@@ -34,7 +33,8 @@ static int	under3(t_push_swap *ps, unsigned int size)
 	}
 	else if (ps->a.size == 3 && node->rank > node->next->next->rank)
 		ps->cmd(ps, RA);
-	else if (ps->b.size > 1 && ps->b.node[0]->rank < ps->b.node[0]->next->rank)
+	else if (ps->b.size > 1
+		&& ps->b.node[IS_FRONT]->rank < ps->b.node[IS_FRONT]->next->rank)
 		ps->cmd(ps, SS);
 	else
 		ps->cmd(ps, SA);
@@ -46,15 +46,15 @@ static int	under4(t_push_swap *ps)
 	t_ps_value	val;
 
 	ps_pivot(&ps->a, ps->a.size, &val);
-	if (ps->a.node[0]->rank == val.max)
+	if (ps->a.node[IS_FRONT]->rank == val.max)
 		ps->cmd(ps, RA);
-	if (ps->a.node[1]->prev->rank == val.max)
+	if (ps->a.node[IS_REAR]->prev->rank == val.max)
 		ps->cmd(ps, RRA);
-	if (ps->a.node[1]->rank == val.max)
+	if (ps->a.node[IS_REAR]->rank == val.max)
 		return (under3(ps, 3));
-	if (ps->a.node[0]->rank == val.min)
+	if (ps->a.node[IS_FRONT]->rank == val.min)
 		return (ps->cmd(ps, PB) && under3(ps, 3) && ps->cmd(ps, PA));
-	if (ps->a.node[1]->prev->rank == val.min)
+	if (ps->a.node[IS_REAR]->prev->rank == val.min)
 		return (ps->cmd(ps, RRA) && under3(ps, 2) && ps->cmd(ps, RRA));
 	return (under3(ps, 3) && ps->cmd(ps, RRA));
 }
@@ -67,15 +67,15 @@ static int	under5(t_push_swap *ps)
 	ps_pivot(&ps->a, ps->a.size, &val);
 	while (val.push < 2)
 	{
-		if (ps->a.node[0]->rank < val.mid)
+		if (ps->a.node[IS_FRONT]->rank < val.mid)
 			val.push += ps->cmd(ps, PB);
-		else if (ps->a.node[0]->next->rank < ps->a.node[1]->rank)
+		else if (ps->a.node[IS_FRONT]->next->rank < ps->a.node[IS_REAR]->rank)
 			ps->cmd(ps, RA);
 		else
 			ps->cmd(ps, RRA);
 	}
-	swap[0] = ps->a.node[0]->rank > ps->a.node[0]->next->rank;
-	swap[1] = ps->b.node[0]->rank < ps->b.node[0]->next->rank;
+	swap[0] = ps->a.node[IS_FRONT]->rank > ps->a.node[IS_FRONT]->next->rank;
+	swap[1] = ps->b.node[IS_FRONT]->rank < ps->b.node[IS_FRONT]->next->rank;
 	if (swap[0] && swap[1])
 		ps->cmd(ps, SS);
 	else if (swap[0])
@@ -110,12 +110,12 @@ void	ps_atob(t_push_swap *ps, unsigned int size)
 		return ;
 	while (val.ra + val.push < val.size)
 	{
-		if (ps->a.node[0]->rank >= val.pivot2)
+		if (ps->a.node[IS_FRONT]->rank >= val.pivot2)
 			val.ra += ps->cmd(ps, RA);
 		else
 		{
 			val.push += ps->cmd(ps, PB);
-			if (ps->b.node[0]->rank > val.pivot1)
+			if (ps->b.node[IS_FRONT]->rank > val.pivot1)
 				val.rb += ps->cmd(ps, RB);
 		}
 	}

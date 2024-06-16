@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:22:55 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 06:08:53 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 06:37:54 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ps_rank(t_deque *dq, int num)
 
 	rank = 0;
 	self = 0;
-	curr = dq->node[0];
+	curr = dq->node[IS_FRONT];
 	while (curr)
 	{
 		if (curr->num == num)
@@ -47,7 +47,7 @@ static void	ps_set(t_push_swap *ps, char *str)
 	errno = 0;
 	new->num = ft_atoi(str);
 	ps_assert(0 == errno, __func__, __FILE__, __LINE__);
-	curr = ps->a.node[0];
+	curr = ps->a.node[IS_FRONT];
 	while (curr)
 	{
 		ps_assert(curr->num != new->num, __func__, __FILE__, __LINE__);

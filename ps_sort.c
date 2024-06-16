@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 06:07:24 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 05:39:43 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 06:36:37 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	ps_pivot(t_deque *dq, unsigned int size, t_ps_value *val)
 	ps_assert(NULL != val, __func__, __FILE__, __LINE__);
 	ps_assert(NULL != arr, __func__, __FILE__, __LINE__);
 	ft_memset(val, 0, sizeof(t_ps_value));
-	curr = dq->node[0];
+	curr = dq->node[IS_FRONT];
 	while (val->size < size && curr)
 	{
 		arr[val->size++] = curr->rank;

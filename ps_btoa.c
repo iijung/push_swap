@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:46:00 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 06:04:55 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 06:33:25 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,21 @@ static int	under3(t_push_swap *ps)
 	t_ps_value	val;
 
 	ps_pivot(&ps->b, 3, &val);
-	if (ps->b.node[0]->next->rank == val.max)
+	if (ps->b.node[IS_FRONT]->next->rank == val.max)
 		ps->cmd(ps, SB);
-	else if (ps->b.node[0]->next->next->rank == val.max && ps->b.size == 3)
+	else if (ps->b.node[IS_FRONT]->next->next->rank == val.max
+		&& ps->b.size == 3)
 		ps->cmd(ps, RRB);
-	if (ps->b.node[0]->rank == val.max)
+	if (ps->b.node[IS_FRONT]->rank == val.max)
 	{
 		ps->cmd(ps, PA);
-		if (ps->b.node[0]->rank < ps->b.node[0]->next->rank)
+		if (ps->b.node[IS_FRONT]->rank < ps->b.node[IS_FRONT]->next->rank)
 			ps->cmd(ps, SB);
 		ps->cmd(ps, PA);
 		return (ps->cmd(ps, PA));
 	}
 	ps->cmd(ps, RB) && ps->cmd(ps, SB) && ps->cmd(ps, PA);
-	if (ps->b.node[0]->rank < ps->b.node[1]->rank)
+	if (ps->b.node[IS_FRONT]->rank < ps->b.node[IS_REAR]->rank)
 		ps->cmd(ps, RRB) && ps->cmd(ps, PA);
 	else
 		ps->cmd(ps, PA) && ps->cmd(ps, RRB);
@@ -45,7 +46,7 @@ static int	check(t_push_swap *ps, t_ps_value *val, unsigned int size)
 			return (ps->cmd(ps, PA));
 		else if (size == 2)
 		{
-			if (ps->b.node[0]->rank < ps->b.node[0]->next->rank)
+			if (ps->b.node[IS_FRONT]->rank < ps->b.node[IS_FRONT]->next->rank)
 				ps->cmd(ps, SB);
 			ps->cmd(ps, PA) && ps->cmd(ps, PA);
 		}
@@ -72,12 +73,12 @@ void	ps_btoa(t_push_swap *ps, unsigned int size)
 		return ;
 	while (val.rb + val.push < val.size)
 	{
-		if (ps->b.node[0]->rank <= val.pivot1)
+		if (ps->b.node[IS_FRONT]->rank <= val.pivot1)
 			val.rb += ps->cmd(ps, RB);
 		else
 		{
 			val.push += ps->cmd(ps, PA);
-			if (ps->a.node[0]->rank < val.pivot2)
+			if (ps->a.node[IS_FRONT]->rank < val.pivot2)
 				val.ra += ps->cmd(ps, RA);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:23:54 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 06:05:39 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 06:37:16 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,19 @@ static t_deque_node	*deque(struct s_deque *dq, int is_rear)
 	node = dq->node[is_rear];
 	if (is_rear)
 	{
-		dq->node[1] = dq->node[1]->prev;
-		if (dq->node[1] == NULL)
-			dq->node[0] = NULL;
+		dq->node[IS_REAR] = dq->node[IS_REAR]->prev;
+		if (dq->node[IS_REAR] == NULL)
+			dq->node[IS_FRONT] = NULL;
 		else
-			dq->node[1]->next = NULL;
+			dq->node[IS_REAR]->next = NULL;
 	}
 	else
 	{
-		dq->node[0] = dq->node[0]->next;
-		if (dq->node[0] == NULL)
-			dq->node[1] = NULL;
+		dq->node[IS_FRONT] = dq->node[IS_FRONT]->next;
+		if (dq->node[IS_FRONT] == NULL)
+			dq->node[IS_REAR] = NULL;
 		else
-			dq->node[0]->prev = NULL;
+			dq->node[IS_FRONT]->prev = NULL;
 	}
 	dq->size -= 1;
 	node->prev = NULL;
@@ -74,18 +74,18 @@ static void	enque(struct s_deque *dq, int is_rear, t_deque_node *node)
 	ps_assert(NULL != node, __func__, __FILE__, __LINE__);
 	if (dq->node[is_rear] == NULL)
 	{
-		dq->node[0] = node;
-		dq->node[1] = node;
+		dq->node[IS_FRONT] = node;
+		dq->node[IS_REAR] = node;
 	}
 	else if (is_rear)
 	{
-		node->prev = dq->node[1];
-		dq->node[1]->next = node;
+		node->prev = dq->node[IS_REAR];
+		dq->node[IS_REAR]->next = node;
 	}
 	else
 	{
-		node->next = dq->node[0];
-		dq->node[0]->prev = node;
+		node->next = dq->node[IS_FRONT];
+		dq->node[IS_FRONT]->prev = node;
 	}
 	dq->node[is_rear] = node;
 	dq->size += 1;
