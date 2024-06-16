@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:05:45 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 05:41:23 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 05:54:37 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,25 @@ static int	dup_check(char *cmd1, char *cmd2)
 		return (0);
 	if ((!ft_strncmp(cmd1, SA, 3) && !ft_strncmp(cmd2, SB, 3))
 		|| (!ft_strncmp(cmd1, SB, 3) && !ft_strncmp(cmd2, SA, 3)))
-		return (1);
+		ft_putendl_fd(SS, STDOUT_FILENO);
 	else if ((!ft_strncmp(cmd1, RA, 3) && !ft_strncmp(cmd2, RB, 3))
 		|| (!ft_strncmp(cmd1, RB, 3) && !ft_strncmp(cmd2, RA, 3)))
-		return (2);
+		ft_putendl_fd(RR, STDOUT_FILENO);
 	else if ((!ft_strncmp(cmd1, RRA, 4) && !ft_strncmp(cmd2, RRB, 4))
 		|| (!ft_strncmp(cmd1, RRB, 4) && !ft_strncmp(cmd2, RRA, 4)))
-		return (3);
-	return (0);
+		ft_putendl_fd(RRR, STDOUT_FILENO);
+	else
+		return (0);
+	return (1);
 }
 
 void	ps_result(t_list *curr)
 {
-	int	flag;
-
-	while (curr)
+	while (curr && curr->next)
 	{
-		if (curr->next == 0)
-			break ;
-		flag = dup_check(curr->content, curr->next->content);
-		if (flag == 1)
-			ft_putendl_fd(SS, STDOUT_FILENO);
-		else if (flag == 2)
-			ft_putendl_fd(RR, STDOUT_FILENO);
-		else if (flag == 3)
-			ft_putendl_fd(RRR, STDOUT_FILENO);
-		else
+		if (0 == dup_check(curr->content, curr->next->content))
 			ft_putendl_fd(curr->content, STDOUT_FILENO);
-		if (flag)
+		else
 			curr = curr->next;
 		curr = curr->next;
 	}
