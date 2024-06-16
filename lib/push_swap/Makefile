@@ -5,16 +5,19 @@
 #                                                     +:+ +:+         +:+      #
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2024/06/17 04:06:32 by minjungk         ###   ########.fr        #
+#    Created: 2023/06/01 02:34:32 by minjungk          #+#    #+#              #
+#    Updated: 2024/06/17 03:59:45 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 .DELETE_ON_ERROR:
 .DEFAULT_GOAL := all
 
+LIBPUSHSWAP = libpushswap.a
+
 CPPFLAGS	+= -MMD -MP
 CFLAGS		+= -Wall -Wextra -Werror -O2
+ARFLAGS		= rsc
 
 ifdef DEBUG
 CPPFLAGS	+= -DDEBUG=1
@@ -22,18 +25,11 @@ CFLAGS		+= -g -fsanitize=address,undefined
 LDFLAGS		+= -fsanitize=address,undefined
 endif
 
-Q = @
-ifdef VERBOSE
-	Q =
-endif
-
 # **************************************************************************** #
 # dependency
 # **************************************************************************** #
 
-LIBS = \
-	lib/push_swap/libpushswap.a \
-	external/libexternal.a \
+LIBS = ../../external/libexternal.a
 
 CPPFLAGS	+= $(foreach dir, $(dir $(LIBS)), -I$(dir))
 LDFLAGS 	+= $(foreach dir, $(dir $(LIBS)), -L$(dir))
@@ -46,56 +42,28 @@ $(LIBS):
 # push_swap
 # **************************************************************************** #
 
-PUSHSWAP = push_swap
+SRCS = \
+	ps_error.c \
+	deque.c \
+	ps_init.c \
+	ps_parse.c \
 
-PUSHSWAP_SRCS = \
-		ps_atob.c \
-		ps_btoa.c \
-		ps_solve.c \
-		push_swap.c \
+OBJS := $(SRCS:.c=.o)
+DEPS := $(SRCS:.c=.d)
+-include $(DEPS)
 
-PUSHSWAP_OBJS = $(PUSHSWAP_SRCS:.c=.o)
-PUSHSWAP_DEPS = $(PUSHSWAP_SRCS:.c=.d)
--include $(PUSHSWAP_DEPS)
+all bonus: $(LIBPUSHSWAP)
 
-$(PUSHSWAP): $(PUSHSWAP_OBJS)
-$(PUSHSWAP_OBJS): $(LIBS)
-
-# **************************************************************************** #
-# checker
-# **************************************************************************** #
-
-CHECKER = checker
-
-CHECKER_SRCS = \
-		checker.c \
-
-CHECKER_OBJS = $(CHECKER_SRCS:.c=.o)
-CHECKER_DEPS = $(CHECKER_SRCS:.c=.d)
--include $(CHECKER_DEPS)
-
-$(CHECKER): $(CHECKER_OBJS)
-$(CHECKER_OBJS): $(LIBS)
-
-# **************************************************************************** #
-# main
-# **************************************************************************** #
-
-all:
-	$(MAKE) $(PUSHSWAP)
-
-bonus:
-	$(MAKE) $(CHECKER)
+$(LIBPUSHSWAP): $(OBJS)
+	$(AR) $(ARFLAGS) $@ $^
 
 clean:
-	for d in $(dir $(LIBS)); do $(MAKE) -C $$d clean; done
-	$Q$(RM) $(wildcard *.o) $(wildcard *.d)
+	$(RM) $(wildcard *.o) $(wildcard *.d)
 
 fclean: clean
-	for d in $(dir $(LIBS)); do $(MAKE) -C $$d fclean; done
-	$Q$(RM) $(PUSHSWAP) $(CHECKER)
+	$(RM) $(LIBPUSHSWAP)
 
 re: fclean
-	$Q$(MAKE)
+	$(MAKE) $(LIBPUSHSWAP)
 
 .PHONY: all clean fclean re bonus

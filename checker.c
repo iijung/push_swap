@@ -6,17 +6,11 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/13 14:42:23 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/13 07:13:51 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 04:07:12 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	ps_error(void)
-{
-	ft_putstr_fd("Error\n", 2);
-	exit(EXIT_FAILURE);
-}
 
 static void	run(t_push_swap *ps)
 {

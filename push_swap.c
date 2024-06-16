@@ -6,17 +6,13 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:05:45 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/13 07:14:25 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 04:01:27 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ps_error(void)
-{
-	ft_putstr_fd("Error\n", 2);
-	exit(EXIT_FAILURE);
-}
+void	ps_atob(t_push_swap *ps, unsigned int size);
 
 static int	dup_check(char *cmd1, char *cmd2)
 {

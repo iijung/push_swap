@@ -6,31 +6,11 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 06:07:24 by minjungk          #+#    #+#             */
-/*   Updated: 2022/10/13 15:26:29 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 03:57:22 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	ps_restore(t_push_swap *ps, unsigned int ra, unsigned int rb)
-{
-	if (ps == 0)
-		ps_error();
-	if (ps->a.size <= ra)
-		ra = 0;
-	if (ps->b.size <= rb)
-		rb = 0;
-	while (ra && rb)
-	{
-		ps->cmd(ps, "rrr");
-		--ra;
-		--rb;
-	}
-	while (ra--)
-		ps->cmd(ps, "rra");
-	while (rb--)
-		ps->cmd(ps, "rrb");
-}
 
 static void	merge(unsigned int *arr, \
 	unsigned int p, unsigned int q, unsigned int r)
@@ -93,4 +73,24 @@ void	ps_pivot(t_deque *dq, unsigned int size, t_ps_value *val)
 	val->max = arr[size - 1];
 	val->pivot1 = arr[size / 3];
 	val->pivot2 = arr[size - size / 3];
+}
+
+void	ps_restore(t_push_swap *ps, unsigned int ra, unsigned int rb)
+{
+	if (ps == 0)
+		ps_error();
+	if (ps->a.size <= ra)
+		ra = 0;
+	if (ps->b.size <= rb)
+		rb = 0;
+	while (ra && rb)
+	{
+		ps->cmd(ps, "rrr");
+		--ra;
+		--rb;
+	}
+	while (ra--)
+		ps->cmd(ps, "rra");
+	while (rb--)
+		ps->cmd(ps, "rrb");
 }
