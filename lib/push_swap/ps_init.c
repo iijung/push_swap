@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 05:37:46 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 06:07:11 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ static unsigned int	swap(struct s_push_swap *ps, char cmd)
 		dq = &ps->b;
 	else
 		return (0);
-	node[0] = dq->deque(dq, 0);
-	node[1] = dq->deque(dq, 0);
-	dq->enque(dq, 0, node[0]);
-	dq->enque(dq, 0, node[1]);
+	node[0] = dq->deque(dq, IS_FRONT);
+	node[1] = dq->deque(dq, IS_FRONT);
+	dq->enque(dq, IS_FRONT, node[0]);
+	dq->enque(dq, IS_FRONT, node[1]);
 	return (1);
 }
 

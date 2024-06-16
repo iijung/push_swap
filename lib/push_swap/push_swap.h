@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 22:23:34 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 05:44:38 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 06:01:53 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@
 # define RRR	"rrr"	// rra + rrb
 # define RRA	"rra"	// reverse rotate a (last -> first)
 # define RRB	"rrb"	// reverse rotate b (last -> first)
+
+enum e_rear
+{
+	IS_FRONT,
+	IS_REAR,
+};
+
+enum e_order
+{
+	DESC,
+	ASC,
+};
 
 typedef struct s_deque_node	t_deque_node;
 typedef struct s_deque		t_deque;

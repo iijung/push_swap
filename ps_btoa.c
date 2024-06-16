@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:46:00 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 05:39:29 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 06:04:55 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	check(t_push_swap *ps, t_ps_value *val, unsigned int size)
 			return (under3(ps));
 		return (1);
 	}
-	if (size <= ps->b.sorted(&ps->b, 0, 0))
+	if (size <= ps->b.sorted(&ps->b, IS_FRONT, DESC))
 	{
 		while (size--)
 			ps->cmd(ps, PA);

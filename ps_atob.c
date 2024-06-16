@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:46:00 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 05:38:56 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 06:03:38 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	under3(t_push_swap *ps, unsigned int size)
 {
 	t_deque_node	*node;
 
-	if (ps->a.sorted(&ps->a, 0, 1) >= size)
+	if (ps->a.sorted(&ps->a, IS_FRONT, ASC) >= size)
 		return (1);
 	if (size == 2)
 		return (ps->cmd(ps, SA));
@@ -89,7 +89,7 @@ static int	under5(t_push_swap *ps)
 
 static int	check(t_push_swap *ps, t_ps_value *val, unsigned int size)
 {
-	if (ps->a.sorted(&ps->a, 0, 1) >= size)
+	if (ps->a.sorted(&ps->a, IS_FRONT, ASC) >= size)
 		return (1);
 	ps_pivot(&ps->a, size, val);
 	if (size < 4)

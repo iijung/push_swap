@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 17:22:55 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 04:49:42 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 06:08:53 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void	ps_set(t_push_swap *ps, char *str)
 		ps_assert(curr->num != new->num, __func__, __FILE__, __LINE__);
 		curr = curr->next;
 	}
-	ps->a.enque(&ps->a, 1, new);
+	ps->a.enque(&ps->a, IS_REAR, new);
 	ps_rank(&ps->a, new->num);
 }
 

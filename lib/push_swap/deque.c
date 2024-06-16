@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:23:54 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 04:47:24 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 06:05:39 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static unsigned int	sorted(struct s_deque *dq, int is_rear, int asc)
 	if (dq == NULL || (is_rear != 0 && is_rear != 1))
 		return (0);
 	cnt = 0;
-	acc = 1 + (asc == 0) * -2;
+	acc = 1 + (asc == DESC) * -2;
 	curr = dq->node[is_rear];
 	while (curr)
 	{
