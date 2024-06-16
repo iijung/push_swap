@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_solve.c                                         :+:      :+:    :+:   */
+/*   ps_sort.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 06:07:24 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 04:51:44 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 05:17:19 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "ps_sort.h"
 
 static void	merge(unsigned int *arr, \
 	unsigned int p, unsigned int q, unsigned int r)

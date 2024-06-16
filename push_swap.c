@@ -6,13 +6,12 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:05:45 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 05:05:11 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 05:27:20 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	ps_atob(t_push_swap *ps, unsigned int size);
+#include "ps_sort.h"
 
 static int	dup_check(char *cmd1, char *cmd2)
 {

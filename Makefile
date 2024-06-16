@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2024/06/17 04:06:32 by minjungk         ###   ########.fr        #
+#    Updated: 2024/06/17 05:17:45 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ PUSHSWAP = push_swap
 PUSHSWAP_SRCS = \
 		ps_atob.c \
 		ps_btoa.c \
-		ps_solve.c \
+		ps_sort.c \
 		push_swap.c \
 
 PUSHSWAP_OBJS = $(PUSHSWAP_SRCS:.c=.o)

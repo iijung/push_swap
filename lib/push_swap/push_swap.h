@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/15 22:23:34 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 05:09:46 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 05:15:49 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 typedef struct s_deque_node	t_deque_node;
 typedef struct s_deque		t_deque;
-typedef struct s_ps_value	t_ps_value;
 typedef struct s_push_swap	t_push_swap;
 
 struct s_deque_node
@@ -34,19 +33,6 @@ struct s_deque
 	t_deque_node	*(*deque)(struct s_deque *, int);
 	void			(*enque)(struct s_deque *, int, t_deque_node *);
 	unsigned int	(*sorted)(struct s_deque *, int, int);
-};
-
-struct s_ps_value
-{
-	unsigned int	min;
-	unsigned int	mid;
-	unsigned int	max;
-	unsigned int	ra;
-	unsigned int	rb;
-	unsigned int	push;
-	unsigned int	size;
-	unsigned int	pivot1;
-	unsigned int	pivot2;
 };
 
 struct s_push_swap

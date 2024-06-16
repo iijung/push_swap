@@ -6,15 +6,11 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:46:00 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 04:50:48 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/06/17 05:16:56 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-void	ps_restore(t_push_swap *ps, unsigned int ra, unsigned int rb);
-void	ps_pivot(t_deque *dq, unsigned int size, t_ps_value *val);
-void	ps_btoa(t_push_swap *ps, unsigned int size);
+#include "ps_sort.h"
 
 static int	under3(t_push_swap *ps, unsigned int size)
 {
