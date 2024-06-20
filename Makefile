@@ -6,7 +6,7 @@
 #    By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/08/29 06:04:57 by minjungk          #+#    #+#              #
-#    Updated: 2024/06/17 07:41:22 by minjungk         ###   ########.fr        #
+#    Updated: 2024/06/20 20:14:21 by minjungk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ endif
 # **************************************************************************** #
 
 LIBS = \
-	lib/push_swap/libpushswap.a \
 	external/libexternal.a \
 
 CPPFLAGS	+= $(foreach dir, $(dir $(LIBS)), -I$(dir))
@@ -49,6 +48,11 @@ $(LIBS):
 PUSHSWAP = push_swap
 
 PUSHSWAP_SRCS = \
+		deque.c \
+		ps_debug.c \
+		ps_assert.c \
+		ps_init.c \
+		ps_parse.c \
 		ps_atob.c \
 		ps_btoa.c \
 		ps_sort.c \
@@ -68,6 +72,11 @@ $(PUSHSWAP_OBJS): $(LIBS)
 CHECKER = checker
 
 CHECKER_SRCS = \
+		deque.c \
+		ps_debug.c \
+		ps_assert.c \
+		ps_init.c \
+		ps_parse.c \
 		checker.c \
 
 CHECKER_OBJS = $(CHECKER_SRCS:.c=.o)
