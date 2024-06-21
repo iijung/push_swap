@@ -1,6 +1,8 @@
 [submodule "libft/ft_printf"]
+	branch = main
 	path = external/ft_printf
 	url = https://github.com/iijung/ft_printf
 [submodule "libft/get_next_line"]
+	branch = main
 	path = external/get_next_line
 	url = https://github.com/iijung/get_next_line
