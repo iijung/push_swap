@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:46:00 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 06:33:39 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/08/09 21:35:43 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ static int	under5(t_push_swap *ps)
 	else if (swap[1])
 		ps->cmd(ps, SB);
 	under3(ps, 3);
-	ps->cmd(ps, PA) && ps->cmd(ps, PA);
+	ps->cmd(ps, PA);
+	ps->cmd(ps, PA);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 19:12:45 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 07:10:13 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/08/09 21:35:20 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ static unsigned int	push(struct s_push_swap *ps, char cmd)
 		from_to[0] = &ps->a;
 		from_to[1] = &ps->b;
 	}
+	else
+		return (0);
 	if (from_to[0]->node[IS_FRONT] == 0)
 		return (0);
 	tmp = from_to[0]->deque(from_to[0], IS_FRONT);

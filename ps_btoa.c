@@ -6,7 +6,7 @@
 /*   By: minjungk <minjungk@student.42seoul.>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/28 17:46:00 by minjungk          #+#    #+#             */
-/*   Updated: 2024/06/17 06:33:25 by minjungk         ###   ########.fr       */
+/*   Updated: 2024/08/09 21:36:35 by minjungk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ static int	under3(t_push_swap *ps)
 		ps->cmd(ps, PA);
 		return (ps->cmd(ps, PA));
 	}
-	ps->cmd(ps, RB) && ps->cmd(ps, SB) && ps->cmd(ps, PA);
+	ps->cmd(ps, RB);
+	ps->cmd(ps, SB);
+	ps->cmd(ps, PA);
 	if (ps->b.node[IS_FRONT]->rank < ps->b.node[IS_REAR]->rank)
-		ps->cmd(ps, RRB) && ps->cmd(ps, PA);
+		return (ps->cmd(ps, RRB) && ps->cmd(ps, PA) && ps->cmd(ps, PA));
 	else
-		ps->cmd(ps, PA) && ps->cmd(ps, RRB);
-	return (ps->cmd(ps, PA));
+		return (ps->cmd(ps, PA) && ps->cmd(ps, RRB) && ps->cmd(ps, PA));
 }
 
 static int	check(t_push_swap *ps, t_ps_value *val, unsigned int size)
@@ -48,7 +49,8 @@ static int	check(t_push_swap *ps, t_ps_value *val, unsigned int size)
 		{
 			if (ps->b.node[IS_FRONT]->rank < ps->b.node[IS_FRONT]->next->rank)
 				ps->cmd(ps, SB);
-			ps->cmd(ps, PA) && ps->cmd(ps, PA);
+			ps->cmd(ps, PA);
+			ps->cmd(ps, PA);
 		}
 		else if (size == 3)
 			return (under3(ps));
